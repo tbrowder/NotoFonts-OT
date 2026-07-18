@@ -1,0 +1,25 @@
+{
+  "auth": "zef:tbrowder",
+  "authors": [
+    "Tom Browder"
+  ],
+  "build-depends": [
+  ],
+  "depends": [
+  ],
+  "description": "Provides routines for using the Google Noto fonts in OpenType format \n\n",
+  "license": "Artistic-2.0",
+  "name": "NotoFonts-OT",
+  "perl": "6.d",
+  "provides": {
+    "NotoFonts-OT": "lib/NotoFonts-OT.rakumod"
+  },
+  "resources": [
+  ],
+  "source-url": "",
+  "tags": [
+  ],
+  "test-depends": [
+  ],
+  "version": "0.0.1"
+}
