@@ -1,0 +1,13 @@
+1. Create a secure temporary working directory
+mkdir -p /tmp/noto-core-otf
+cd /tmp/noto-core-otf
+
+2. Download only the desired files
+wget -p https://github.com/notofonts.github.io/fonts/NotoSans/unhinted/otf/NotoSans/
+  NotoSans-Regular.otf
+  NotoSans-Bold.otf
+  NotoSans-Italic.otf
+  NotoSans-BoldItalic.otf
+wget -p https://github.com/notofonts.github.io/fonts/Noto  Sans/unhinted/otf/NotoSans/
+
+
