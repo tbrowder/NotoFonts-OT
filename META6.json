@@ -12,11 +12,14 @@
   "name": "NotoFonts-OT",
   "perl": "6.d",
   "provides": {
-    "NotoFonts-OT": "lib/NotoFonts-OT.rakumod"
+    "NotoFonts-OT": "lib/NotoFonts-OT.rakumod",
+    "NotoFonts-OT::FontPaths": "lib/NotoFonts-OT/FontPaths.rakumod",
+    "NotoFonts-OT::Subs": "lib/NotoFonts-OT/Subs.rakumod",
+    "NotoFonts-OT::Vars": "lib/NotoFonts-OT/Vars.rakumod"
   },
   "resources": [
   ],
-  "source-url": "",
+  "source-url": "https://github.com/tbrowder/NotoFonts-OT.git",
   "tags": [
   ],
   "test-depends": [

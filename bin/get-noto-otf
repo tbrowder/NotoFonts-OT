@@ -1,0 +1,115 @@
+#!/usr/bin/env raku
+use v6.d;
+
+use NotoFonts-OT::Download :ALL;
+use NotoFonts-OT::Registry;
+
+my NotoFonts-OT::Registry $registry = NotoFonts-OT::Registry.new;
+
+sub usage(Int:D $status = 0 --> Nil) {
+    my $out = $status == 0 ?? $*OUT !! $*ERR;
+
+    $out.say: q:to/END/;
+Usage: get-noto-otf [options]
+
+Download the static, unhinted OTF faces for Noto Serif, Noto Sans,
+and Noto Sans Mono.
+
+Options:
+    --dir=DIR          Destination directory (default: %*ENV<NOTO_FONTS_OTF)
+    --family=NAME      Download serif, sans, or mono only
+    --force            Replace existing files
+    --list             List the available faces without downloading
+    -h, --help         Show this help
+END
+
+    exit $status;
+}
+
+my $fdir = %*ENV<NOTO_FONTS_OTF>.IO;
+unless $fdir.d {
+    print qq:to/HERE/;
+    FATAL: The download directory is not defined.
+           
+           Exiting...
+    HERE
+    exit;
+} 
+
+my IO::Path $directory = $fdir.IO; # 'noto-otf'.IO; 
+my Str $family = '';
+my Bool $force = False;
+my Bool $list = False;
+
+my @args = @*ARGS;
+while @args {
+    my $arg = @args.shift;
+
+    given $arg {
+        when '-h' | '--help' {
+            usage();
+        }
+        when '--force' {
+            $force = True;
+        }
+        when '--list' {
+            $list = True;
+        }
+        when /^ '--dir=' (.+) $/ {
+            $directory = (~$0).IO;
+        }
+        when '--dir' {
+            usage(2) unless @args;
+            $directory = @args.shift.IO;
+        }
+        when /^ '--family=' (.+) $/ {
+            $family = ~$0;
+        }
+        when '--family' {
+            usage(2) unless @args;
+            $family = @args.shift;
+        }
+        default {
+            $*ERR.say: "Unknown option: $arg";
+            usage(2);
+        }
+    }
+}
+
+my @records;
+if $family.chars {
+    my $key = $registry.normalize-family($family);
+    for $registry.faces($key) -> $face {
+        @records.push: {
+            family => $key,
+            face   => $face,
+        };
+    }
+}
+else {
+    # where is $registry defined?
+    @records = $registry.records.Array;
+}
+
+if $list {
+    for @records -> %record {
+        say sprintf(
+            '%-6s %-12s %s',
+            %record<family>,
+            %record<face>,
+            $registry.filename(%record<family>, %record<face>),
+        );
+    }
+    exit 0;
+}
+
+for @records -> %record {
+    download-font(
+        %record<family>,
+        %record<face>,
+        :$directory,
+        :$force,
+    );
+}
+
+say "Font directory: {$directory.absolute}";
