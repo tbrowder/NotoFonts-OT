@@ -2,8 +2,8 @@ unit module NotoFonts-OT::FontPaths;
 
 use MacOS::NativeLib "*";
 
-our constant $fontdir is export = %*ENV<NOTO_FONTS_OTF>.IO;
-our &font-paths := &get-font-file-paths-hash;
+our $fontdir is export = %*ENV<NOTO_FONTS_OTF>.IO;
+our &font-paths is export = &get-font-file-paths-hash;
 sub get-font-file-paths-hash(:$debug --> Hash) is export {
     unless $fontdir.d {
         print qq:to/HERE/;

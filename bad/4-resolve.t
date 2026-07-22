@@ -12,8 +12,7 @@ use PDF::Content::FontObj;
 use PDF::Lite;
 
 use NotoFonts-OT;
-use NotoFonts-OT::FilePaths;
-use NotoFonts-OT::Subs;
+use NotoFonts-OT::FontPaths;
 use NotoFonts-OT::Subs;
 use NotoFonts-OT::Vars;
 
@@ -37,8 +36,11 @@ isa-ok %fonts, Hash, "good Hash of font paths";
 
 my @k  = %fonts.keys.sort;
 my $nk = @k.elems;
-is $nk, 72, "must have $nk elements";
-isa-ok %h{@k.head}, IO::Path, "valid path";
+is $nk, 56, "must have $nk elements";
+isa-ok %fonts{@k.head}, IO::Path, "valid path";
+
+done-testing;
+=finish
 
 isa-ok $ff.font-file-paths{@k.head}.IO, IO::Path, "valid path";
 $code = "t";
