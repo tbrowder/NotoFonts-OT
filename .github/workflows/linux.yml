@@ -31,7 +31,8 @@ jobs:
             sudo apt-get install -y libfreetype6-dev \
                 build-essential \
                 pkg-config \
-                libfreetype6-dev
+                libfreetype6-dev \
+                --exclude='Font::FreeType'
       - name: Install Dependencies
         run: zef install --/test --test-depends --deps-only .
       - name: Install App::Prove6
