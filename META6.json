@@ -12,7 +12,6 @@
     "PDF::Content::FontObj",
     "PDF::Font::Loader",
     "PDF::Font::Loader::HarfBuzz",
-    "Font::FreeFont",
     "Font::FreeType:ver<0.15.6>",
     "PDF::Lite"
   ],
