@@ -7,7 +7,7 @@ sub get-font-file-paths-hash(:$debug --> Hash) is export {
     unless $fontdir.d {
         print qq:to/HERE/;
         FATAL: The required font directory '$fontdir' 
-               does not exist. All desired Noto fonts
+               does not exist. All desired Noto OTF fonts
                must be placed in that directory.
 
                Exiting...
@@ -21,28 +21,26 @@ sub get-font-file-paths-hash(:$debug --> Hash) is export {
     # Use codes reflecting the Adobe parentage of its class PostScript fonts
     # I grew up with in the PS days:
     #
-    # Times-Roman
+    # Times-Roman family and font files
     my $fft   = "$fontdir/NotoSerif/NotoSerif-Regular.otf".IO;
     my $fftb  = "$fontdir/NotoSerif/NotoSerif-Bold.otf".IO;
     my $ffti  = "$fontdir/NotoSerif/NotoSerif-Italic.otf".IO;
     my $fftbi = "$fontdir/NotoSerif/NotoSerif-BoldItalic.otf".IO;
 
-    # Helvetica
+    # Helvetica family and font files
     my $ffh   = "$fontdir/NotoSans/NotoSans-Regular.otf".IO;
     my $ffhb  = "$fontdir/NotoSans/NotoSans-Bold.otf".IO;
     my $ffho  = "$fontdir/NotoSans/NotoSans-Italic.otf".IO;
     my $ffhbo = "$fontdir/NotoSans/NotoSans-BoldItalic.otf".IO;
 
-    # Courier
+    # Courier family and font files
     my $ffc   = "$fontdir/NotoSansMono/NotoSansMono-Regular.otf".IO;
     my $ffcb  = "$fontdir/NotoSansMono/NotoSansMono-Bold.otf".IO;
-# total 10 (10)
 
     # no Noto Sans equivalent to itlaic version
-    # but the "sans" looks like serifs
-    # my $ffco  = "$fontdir/NotoMonoOblique.otf".IO;
-    # my $ffcbo = "$fontdir/NotoMonoBoldOblique.otf".IO;
 
+    # create a font hash with font code as key and its font file
+    # name as value 
     my %fonts;
     # get paths, don't load
 
@@ -61,7 +59,7 @@ sub get-font-file-paths-hash(:$debug --> Hash) is export {
     # Courier
     %fonts<c>   = $ffc;   # deb 12, :subset;
     %fonts<cb>  = $ffcb;  # deb 12, :subset;
-# total 10 (20)
+# total 10 (10)
 
     # "aliases" for the real names
     %fonts<se>   = %fonts<t>;
@@ -76,19 +74,22 @@ sub get-font-file-paths-hash(:$debug --> Hash) is export {
 
     %fonts<m>    = %fonts<c>;
     %fonts<mb>   = %fonts<cb>;
-# total 10 (30)
+# total 10 (20)
 
     # TODO: put ALL of the aliases here
     #       ...
     # add some extra keys called "aliases" # Time-Roman/NotoSerif
     %fonts<se>   = %fonts<t>; # "NotoSerif-Regular";     # 1
     %fonts{1}    = %fonts<t>; # "NotoSerif-Regular";     # 1
+
     %fonts<seb>  = %fonts<tb>; # "NotoSerif-Bold";       # 2
     %fonts{2}    = %fonts<tb>; # "NotoSerif-Bold";       # 2
+
     %fonts<to>   = %fonts<ti>; # "NotoSerif-Italic";     # 3
     %fonts{3}    = %fonts<ti>; # "NotoSerif-Italic";     # 3
     %fonts<seo>  = %fonts<ti>; # "NotoSerif-Italic";
     %fonts<sei>  = %fonts<ti>; # "NotoSerif-Italic";
+
     %fonts<tbo>  = %fonts<tbi>; #"NotoSerif-BoldItalic"; # 4
     %fonts{4}    = %fonts<tbi>; #"NotoSerif-BoldItalic"; # 4
     %fonts<tob>  = %fonts<tbi>; #"NotoSerif-BoldItalic";
@@ -97,45 +98,36 @@ sub get-font-file-paths-hash(:$debug --> Hash) is export {
     %fonts<sebo> = %fonts<tbi>; #"NotoSerif-BoldItalic"; #;
     %fonts<seob> = %fonts<tbi>; #"NotoSerif-BoldItalic";
     %fonts<seib> = %fonts<tbi>; #"NotoSerif-BoldItalic";
-# total 16 (46)
+# total 16 (36)
 
     # Helvetica/NotoSans
     %fonts<sa>   = %fonts<h>; #"NotoSans-Regular";      # 5
     %fonts{5}    = %fonts<h>; #"NotoSans-Regular";      # 5
+
     %fonts<sab>  = %fonts<hb>; #"NotoSans-Bold";        # 6
     %fonts{6}    = %fonts<hb>; #"NotoSans-Bold";        # 6
-    %fonts<hi>   = %fonts<ho>; #"NotoSans-Oblique";     # 7
-    %fonts{7}    = %fonts<ho>; #"NotoSans-Oblique";     # 7
-    %fonts<sai>  = %fonts<ho>; #"NotoSans-Oblique";
-    %fonts<sao>  = %fonts<ho>; #"NotoSans-Oblique";
-    %fonts<hbi>  = %fonts<hbo>; #"NotoSans-BoldOblique"; # 8
-    %fonts{8}    = %fonts<hbo>; #"NotoSans-BoldOblique"; # 8
-    %fonts<hob>  = %fonts<hbo>; #"NotoSans-BoldOblique";
-    %fonts<hib>  = %fonts<hbo>; #"NotoSans-BoldOblique";
-    %fonts<sabi> = %fonts<hbo>; #"NotoSans-BoldOblique";
-    %fonts<sabo> = %fonts<hbo>; #"NotoSans-BoldOblique";
-    %fonts<saob> = %fonts<hbo>; #"NotoSans-BoldOblique";
-    %fonts<saib> = %fonts<hbo>; #"NotoSans-BoldOblique";
+
+    %fonts<hi>   = %fonts<ho>; #"NotoSans-Italic";     # 7
+    %fonts{7}    = %fonts<ho>; #"NotoSans-Italic";     # 7
+    %fonts<sai>  = %fonts<ho>; #"NotoSans-Italic";
+    %fonts<sao>  = %fonts<ho>; #"NotoSans-Italic";
+
+    %fonts<hbi>  = %fonts<hbo>; #"NotoSans-BoldItalic"; # 8
+    %fonts{8}    = %fonts<hbo>; #"NotoSans-BoldItalic"; # 8
+    %fonts<hob>  = %fonts<hbo>; #"NotoSans-BoldItalic";
+    %fonts<hib>  = %fonts<hbo>; #"NotoSans-BoldItalic";
+    %fonts<sabi> = %fonts<hbo>; #"NotoSans-BoldItalic";
+    %fonts<sabo> = %fonts<hbo>; #"NotoSans-BoldItalic";
+    %fonts<saob> = %fonts<hbo>; #"NotoSans-BoldItalic";
+    %fonts<saib> = %fonts<hbo>; #"NotoSans-BoldItalic";
 # total 16 (52)
 
-    # Courier/NotoMono
-    %fonts<m>   = %fonts<c>; #"NotoMono";              # 9
-    %fonts{9}   = %fonts<c>; #"NotoMono";              # 9
-    %fonts<mb>  = %fonts<cb>; #"NotoMono-Bold";         # 10
-    %fonts{10}  = %fonts<cb>; #"NotoMono-Bold";         # 10
-    %fonts<ci>  = %fonts<co>; #"NotoMono-Oblique";      # 11
-    %fonts{11}  = %fonts<co>; #"NotoMono-Oblique";      # 11
-    %fonts<mo>  = %fonts<co>; #"NotoMono-Oblique";
-    %fonts<mi>  = %fonts<co>; #"NotoMono-Oblique";
-    %fonts<cbi> = %fonts<cbo>; #"NotoMono-BoldOblique";  # 12
-    %fonts{12}  = %fonts<cbo>; #"NotoMono-BoldOblique";  # 12
-    %fonts<cob> = %fonts<cbo>; #"NotoMono-BoldOblique";
-    %fonts<cib> = %fonts<cbo>; #"NotoMono-BoldOblique";
-    %fonts<mbi> = %fonts<cbo>; #"NotoMono-BoldOblique";
-    %fonts<mib> = %fonts<cbo>; #"NotoMono-BoldOblique";
-    %fonts<mob> = %fonts<cbo>; #"NotoMono-BoldOblique";
-    %fonts<mbo> = %fonts<cbo>; #"NotoMono-BoldOblique";
-# total 16 (68)
+    # Courier/NotoSansMono
+    %fonts<m>   = %fonts<c>; #"NotoSansMono-Regular";    # 9
+    %fonts{9}   = %fonts<c>; #"NotoSansMono-Regular";    # 9
+    %fonts<mb>  = %fonts<cb>; #"NotoSansMono-Bold";      # 10
+    %fonts{10}  = %fonts<cb>; #"NotoSansMono-Bold";      # 10
+# total 4 (46)
 
     # now add the actual names to the hash
     # These are the fonts from Google Noto Font
@@ -148,10 +140,9 @@ sub get-font-file-paths-hash(:$debug --> Hash) is export {
     %fonts<NotoSans-Bold>        = %fonts<hb>;                             # 6
     %fonts<NotoSans-Italic>      = %fonts<ho>;  # also hi                  # 7
     %fonts<NotoSans-BoldItalic>  = %fonts<hbo>; # also hbi, hob, hib       # 8
-    %fonts<NotoMono>             = %fonts<c>;                              # 9
-    %fonts<NotoMono-Bold>        = %fonts<cb>;                             # 10
-# total 10 (78)
-
+    %fonts<NotoSansMono-Regular> = %fonts<c>;                              # 9
+    %fonts<NotoSansMono-Bold>    = %fonts<cb>;                             # 10
+# total 10 (56)
 
     # the final hash:
     return %fonts; # hash of font file paths

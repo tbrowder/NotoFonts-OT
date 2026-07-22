@@ -25,7 +25,7 @@ isa-ok %fonts, Hash, "good Hash of font paths";
 
 my @k  = %fonts.keys.sort;
 my $nk = @k.elems;
-is $nk, 70, "must have 70 elements";
+is $nk, 56, "must have 56 elements";
 isa-ok %fonts{@k.head}, IO::Path, "valid path";
 
 isa-ok %fonts{@k.head}.IO, IO::Path, "valid path";

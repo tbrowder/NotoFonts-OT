@@ -3,3 +3,5 @@ Define an env var for the location of the fonts
 Provide an extended numerical list for the many
 other known core fonts.
 
+Provide a routine to provide a font when given
+a list of descriptors.
