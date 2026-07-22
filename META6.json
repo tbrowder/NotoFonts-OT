@@ -6,6 +6,13 @@
   "build-depends": [
   ],
   "depends": [
+    "MacOS::NativeLib",
+    "OO::Monitors",
+    "PDF::Content",
+    "PDF::Content::FontObj",
+    "PDF::Font::Loader",
+    "PDF::Font::Loader::HarfBuzz",
+    "PDF::Lite"
   ],
   "description": "Provides routines for using the Google Noto fonts in OpenType format \n\n",
   "license": "Artistic-2.0",

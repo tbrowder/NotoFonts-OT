@@ -12,6 +12,7 @@ use PDF::Content::FontObj;
 use PDF::Lite;
 
 use NotoFonts-OT;
+use NotoFonts-OT::FilePaths;
 use NotoFonts-OT::Subs;
 use NotoFonts-OT::Subs;
 use NotoFonts-OT::Vars;
@@ -23,17 +24,18 @@ my ($font, $font2, $code);
 
 is 1, 1, "simple";
 
-done-testing;
+#done-testing;
 
-=finish
+#=finish
 
 my $ff = NotoFonts-OT.new;
-isa-ok $ff, NotoFonts-OT, "good GNU::FreeFont object";
+isa-ok $ff, NotoFonts-OT, "good class object";
 
-my %h = $ff.font-file-paths;
-isa-ok %h, Hash, "good Hash of font paths";
+#my %h = $ff.font-file-paths;
+my %fonts = font-paths;
+isa-ok %fonts, Hash, "good Hash of font paths";
 
-my @k  = %h.keys.sort;
+my @k  = %fonts.keys.sort;
 my $nk = @k.elems;
 is $nk, 72, "must have $nk elements";
 isa-ok %h{@k.head}, IO::Path, "valid path";
