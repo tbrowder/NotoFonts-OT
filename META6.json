@@ -12,7 +12,8 @@
     "PDF::Content::FontObj",
     "PDF::Font::Loader",
     "PDF::Font::Loader::HarfBuzz",
-    "Font::FreeType",
+    "Font::FreeFont",
+    "Font::FreeType:ver<0.15.6>",
     "PDF::Lite"
   ],
   "description": "Provides routines for using the Google Noto fonts in OpenType format \n\n",
