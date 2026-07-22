@@ -11,10 +11,10 @@ use PDF::Content;
 use PDF::Content::FontObj;
 use PDF::Lite;
 
-use GNU::FreeFont-OTF;
-use GNU::FreeFont-OTF::Subs;
-use GNU::FreeFont-OTF::Subs;
-use GNU::FreeFont-OTF::Vars;
+use NotoFonts-OT;
+use NotoFonts-OT::Subs;
+use NotoFonts-OT::Subs;
+use NotoFonts-OT::Vars;
 
 my ($font-path, $font-path2);
 my ($font, $font2, $code);
@@ -27,8 +27,8 @@ done-testing;
 
 =finish
 
-my $ff = GNU::FreeFont-OTF.new;
-isa-ok $ff, GNU::FreeFont-OTF, "good GNU::FreeFont object";
+my $ff = NotoFonts-OT.new;
+isa-ok $ff, NotoFonts-OT, "good GNU::FreeFont object";
 
 my %h = $ff.font-file-paths;
 isa-ok %h, Hash, "good Hash of font paths";

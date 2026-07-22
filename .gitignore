@@ -1,1 +1,4 @@
 /noto-core-fonts
+lib/.precomp/
+.precomp/
+bash/

@@ -35,26 +35,24 @@ $font-path = %fonts<t>.IO;
 isa-ok $font-path, IO::Path, "valid path";
 
 $font = PDF::Font::Loader.load-font: :file($font-path);
-#0$font = $ff.get-font: "t";
 is $font.font-name, "NotoSerif-Regular", "FontObj knows its name";
 
-#my $file = $ff.get-font-path: "hob";
 my $file = %fonts<hob>; #$ff.get-font-path: "hob";
 	
 $font = load-font :$file;
 isa-ok $font, PDF::Content::FontObj;
 
 $file = %fonts<1>;
-#$font = $ff.get-font: 1;
+$font = load-font :$file;
+isa-ok $font, PDF::Content::FontObj;
+
+$code = "NotoSerif-Regular";
+$file = %fonts{$code};
 $font = load-font :$file;
 isa-ok $font, PDF::Content::FontObj;
 
 done-testing;
 =finish
-
-$code = "Free Serif";
-$font = $ff.get-font: $code;
-isa-ok $font, PDF::Content::FontObj;
 
 # test the sharing of the same font
 if not $debug {
