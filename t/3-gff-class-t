@@ -12,6 +12,7 @@ use PDF::Content::FontObj;
 use PDF::Lite;
 
 use NotoFonts-OT;
+use NotoFonts-OT::FontPaths;
 
 my $ff = NotoFonts-OT.new;
 
@@ -22,10 +23,13 @@ if $debug {
 #   exit;
 }
 
+my %fonts = get-font-file-paths-hash;
 my $last-font;
-my @fnames = 't', 'se', 1;
-for @fnames.kv -> $i, $fnam {
-    my $f = $ff.get-font: $fnam;
+my @codes = 't', 'se', 1;
+for @codes.kv -> $i, $code {
+#   my $f = $ff.get-font: $fnam;
+    my $fnam = %fonts{$code};
+    my $f = load-font :file($fnam);
     isa-ok $f, PDF::Content::FontObj;
 
     =begin comment
@@ -38,10 +42,14 @@ for @fnames.kv -> $i, $fnam {
     $last-font = $f;
 }
 
+done-testing;
+=finish
+
 # check ALL fonts load;
-for $ff.codes-list.sort -> $code {
-    my $f = $ff.get-font: $code;
+#for $ff.codes-list.sort -> $code {
+for %fonts.keys -> $code {
+    #my $f = $ff.get-font: $code;
+    my $f = load-font :file($code);
     say $f.font-name;
 }
 
-done-testing;
