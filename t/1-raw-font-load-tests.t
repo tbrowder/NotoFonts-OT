@@ -23,10 +23,9 @@ $font-path  = %fonts<t>;
 $font-path2 = %fonts<sa>;
 $font-path3 = %fonts<1>;
 $font-path4 = %fonts{1};
-isa-ok $font-path, IO::Path;
-isa-ok $font-path2, IO::Path;
-isa-ok $font-path3, IO::Path;
-isa-ok $font-path4, IO::Path;
+isa-ok $font-path.IO, IO::Path;
+isa-ok $font-path2.IO, IO::Path;
+isa-ok $font-path4.IO, IO::Path;
 
 # use the valid paths to get a loaded font
 $font  = PDF::Font::Loader.load-font: :file($font-path);

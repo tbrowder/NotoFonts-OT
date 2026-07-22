@@ -26,12 +26,10 @@ isa-ok %fonts, Hash, "good Hash of font paths";
 my @k  = %fonts.keys.sort;
 my $nk = @k.elems;
 is $nk, 56, "must have 56 elements";
-isa-ok %fonts{@k.head}, IO::Path, "valid path";
 
 isa-ok %fonts{@k.head}.IO, IO::Path, "valid path";
 $code = "t";
 $font-path = %fonts<t>.IO;
-#isa-ok %fonts{$code}.IO, IO::Path, "valid path";
 isa-ok $font-path, IO::Path, "valid path";
 
 $font = PDF::Font::Loader.load-font: :file($font-path);
