@@ -21,12 +21,6 @@ my ($font, $font2, $code);
 
 # test the resolve-fontref sub
 
-is 1, 1, "simple";
-
-#done-testing;
-
-#=finish
-
 my $ff = NotoFonts-OT.new;
 isa-ok $ff, NotoFonts-OT, "good class object";
 
@@ -39,77 +33,78 @@ my $nk = @k.elems;
 is $nk, 56, "must have $nk elements";
 isa-ok %fonts{@k.head}, IO::Path, "valid path";
 
-done-testing;
-=finish
-
-isa-ok $ff.font-file-paths{@k.head}.IO, IO::Path, "valid path";
+isa-ok %fonts{@k.head}.IO, IO::Path, "valid path";
 $code = "t";
-isa-ok $ff.font-file-paths{$code}.IO, IO::Path, "valid path";
+isa-ok %fonts{$code}.IO, IO::Path, "valid path";
 
-$font = $ff.get-font: "t";
-is $font.font-name, "FreeSerif", "FontObj knows its name";
+$font = load-font :file(%fonts{$code}); 
+is $font.font-name, "NotoSerif-Regular", "FontObj knows its name";
 
-my $file = $ff.get-font-path: "hob";
-$font = load-font :$file;
+$code = "hob";
+$font = load-font :file(%fonts{$code}); 
 isa-ok $font, PDF::Content::FontObj;
 
-$font = $ff.get-font: 1;
+$code = 1;
+$font = load-font :file(%fonts{$code}); 
 isa-ok $font, PDF::Content::FontObj;
 
-$code = "Free Serif";
-$font = $ff.get-font: $code;
+$code = "NotoSerif-Regular";
+$font = load-font :file(%fonts{$code}); 
 isa-ok $font, PDF::Content::FontObj;
+
+$font2 = load-font :file(%fonts{$code}); 
+isa-ok $font2, PDF::Content::FontObj;
+
+# test the sharing of the same font
+if not $debug {
+    is $font, $font2;
+}
+else {
+    say "WARNING: This test MUST pass in order to publish";
+}
+
+isa-ok $font, PDF::Content::FontObj;
+isa-ok $font2, PDF::Content::FontObj;
+
+# test the sharing of the same font
+if not $debug {
+    is $font, $font2;
+}
+else {
+    say "WARNING: This test MUST pass in order to publish";
+}
+
+$code = "h";
+$font = load-font :file(%fonts{$code}); 
+$code = "se";
+$font2 = load-font :file(%fonts{$code}); 
+isa-ok $font, PDF::Content::FontObj;
+isa-ok $font2, PDF::Content::FontObj;
+
+# test the sharing of the same font
+if not $debug {
+    is $font, $font2;
+}
+else {
+    say "WARNING: This test MUST pass in order to publish";
+}
+
+$code = "c";
+$font = load-font :file(%fonts{$code}); 
+$code = "m";
+$font2 = load-font :file(%fonts{$code}); 
+
+isa-ok $font, PDF::Content::FontObj;
+isa-ok $font2, PDF::Content::FontObj;
+
+# test the sharing of the same font
+if not $debug {
+    is $font, $font2;
+}
+else {
+    say "WARNING: This test MUST pass in order to publish";
+}
 
 done-testing;
-=finish
 
-# test the sharing of the same font
-if not $debug {
-    is $font, $font2;
-}
-else {
-    say "WARNING: This test MUST pass in order to publish";
-}
-
-
-=finish
-
-isa-ok $font, PDF::Content::FontObj;
-isa-ok $font2, PDF::Content::FontObj;
-
-# test the sharing of the same font
-if not $debug {
-    is $font, $font2;
-}
-else {
-    say "WARNING: This test MUST pass in order to publish";
-}
-
-$font   = $ff.fonts<h>;
-$font2  = $ff.fonts<se>;
-isa-ok $font, PDF::Content::FontObj;
-isa-ok $font2, PDF::Content::FontObj;
-
-# test the sharing of the same font
-if not $debug {
-    is $font, $font2;
-}
-else {
-    say "WARNING: This test MUST pass in order to publish";
-}
-
-$font  = $ff.fonts<c>;
-$font2 = $ff.fonts<m>;
-isa-ok $font, PDF::Content::FontObj;
-isa-ok $font2, PDF::Content::FontObj;
-
-# test the sharing of the same font
-if not $debug {
-    is $font, $font2;
-}
-else {
-    say "WARNING: This test MUST pass in order to publish";
-}
-
-done-testing;
 
