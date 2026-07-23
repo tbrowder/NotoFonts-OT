@@ -5,7 +5,7 @@ NAME
 
 **NotoFonts-OT** - Provides routines for using the Google Noto fonts in OpenType format 
 
-In order to use the fonts they mustbe downloaded by the user or by the system administrator to a location defined in environment variable `NOTO_FONTS_DIR`. In directory `./sbin` is a bash script to download the 10 fonts that are the equivalent of the original Adobe fonts.
+In order to use the fonts they must be downloaded by the user or by the system administrator to a location defined in environment variable `NOTO_FONTS_DIR`. In directory `./sbin` is a bash script to download the 10 fonts that are the equivalent of the original Adobe fonts.
 
 SYNOPSIS
 ========
