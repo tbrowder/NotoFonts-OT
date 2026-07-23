@@ -1,6 +1,7 @@
 use Test;
 
 use NotoFonts-OT; 
+use NotoFonts-OT::FontPaths; 
 use NotoFonts-OT::Subs; 
 
 plan 3;
@@ -28,4 +29,6 @@ lives-ok {
  
 my $min-size = 10_000; # bytes
 ok $outfile.IO.s > $min-size, "Output PDF size {$outfile.IO.s} > {$min-size}";
+
+done-testing;
 

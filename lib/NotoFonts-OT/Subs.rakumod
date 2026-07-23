@@ -42,7 +42,7 @@ our $default-font-size is export = 11;
 sub help() is export {
 print qq:to/HERE/;
    Writes a portrait PDF showing all language samples using a selected Noto font's
-     face and size.
+     face and the default size.
 
    Usage:
 
@@ -57,8 +57,8 @@ print qq:to/HERE/;
    \$font-ref may be:
      * Int: a reference number from the code tables (1..10)
      * Str: a code from the code tables
-     * Str: a family name (e.g., "Sans")
-     * Str: a path to an .otf (or .ttf) file
+     * Str: a family name (e.g., "NotoSans")
+     * Str: a path to an .otf file
 
    With only the 'print' input argument, the default output
      PDF file will be: 'NotoFonts-OT-samples.pdf'. (Adding
@@ -93,6 +93,15 @@ sub resolve-font-ref(
         die "Could not find font hash '%fonts'. Is it installed?";
     }
 
+    if  %fonts{$font-ref}:exists {
+        return %fonts{$font-ref};
+    }
+    else {
+        die "Font reference '$font-ref' is not recognized.";
+    }
+
+    =begin comment
+    # for possible use later
     # convert inputs to valid font refs
     my $font-path = "";
     my $fr = $font-ref;
@@ -150,7 +159,7 @@ sub resolve-font-ref(
 
     with $font-ref {
         my $r = $_;
-        when $r ~~ 1..12 {
+        when $r ~~ 1..10 {
             $font-path = %fonts{$r};
         }
         default {
@@ -160,7 +169,7 @@ sub resolve-font-ref(
 
     unless $font-path.defined and $font-path.IO.r {
         die qq:to/HERE/;
-        FATAL: Could not find a GNU FreeFont file
+        FATAL: Could not find a Noto font file
         with font reference '$font-ref'.
         Is your desired font installed?
 
@@ -173,6 +182,7 @@ sub resolve-font-ref(
     }
 
     $font-path;
+    =end comment
 
 } # end of sub resolve-font-ref
 
@@ -220,7 +230,7 @@ sub do-pdf-language-samples(
     # unless the output file is defined, make it reflect the other input values
     unless $ofile.defined and $ofile ~~ /\S/ {
         # start with this and modify as needed:
-        my $base = "GNU-FreeFont-OTF";
+        my $base = "NotoFonts-OT";
 
         my $n1 = $page-size.contains("a4", :i) ?? "A4" !! "";
         my $n2 = $kerning ?? "kern" !! "nokern";
@@ -236,7 +246,7 @@ sub do-pdf-language-samples(
     }
 
     unless $font-ref.defined and ($font-ref ~~ /\S/) {
-        $font-ref = "Free Serif";
+        $font-ref = "NotoSerif-Regular";
         # but that restricts the output choices
         if $all or $lang {
             say "NOTE: You have selected a font ($font-ref) by default.";
@@ -251,6 +261,9 @@ sub do-pdf-language-samples(
     # Note: font-size is only for the body text
     # other sizes may need to be modified after seeing real output:
     my $head-core-size = 16;
+
+    my $loaded-font = try { load-font :file($font-path) } //
+            die "Could not find a Noto font at file ‘$font-path’. Is it installed?";
 =end comment
 
     my $loaded-font = try { load-font :file($font-path) } //
@@ -346,7 +359,7 @@ sub do-pdf-language-samples(
     my %samples := try %default-samples
         orelse die q:to/HERE/;
         FATAL: This routine expects %default-samples to be defined in
-            GNU::FreeFont::Subs
+            NotoFonts-OT::Subs
         HERE
 
     my %names;
