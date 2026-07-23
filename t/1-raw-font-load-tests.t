@@ -14,6 +14,7 @@ use PDF::Lite;
 # testing the file path getter:
 use NotoFonts-OT;
 use NotoFonts-OT::FontPaths;
+use NotoFonts-OT::Subs;
 
 my %fonts = get-font-file-paths-hash;
 

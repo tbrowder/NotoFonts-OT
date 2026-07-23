@@ -15,8 +15,6 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-          - macos-latest
-          - windows-latest
         raku-version:
           - 'latest'
     runs-on: ${{ matrix.os }}
@@ -28,10 +26,24 @@ jobs:
       - name: Install FreeType2
         run: | 
             sudo apt-get update
-            sudo apt-get install -y libfreetype6-dev \
+            sudo apt-get install -y \
+                libfreetype-dev \
+                libharfbuzz-dev \
+                libfontconfig1-dev \
                 build-essential \
                 pkg-config \
-                libfreetype6-dev
+                build-essential
+      - name: update font cache
+        run: |
+             sudo fc-cache -f -v
+
+             # verification check
+             fc-list : family | grep -i "Noto Serif"
+        
+      - name: Verify Mappings and Compile
+        run: | 
+             # diagnostics: ensure 
+             pkg-config --cflags --libs freetype2 harfbuzz
       - name: Install Dependencies
         run: zef install --/test --test-depends --deps-only .
       - name: Install App::Prove6
