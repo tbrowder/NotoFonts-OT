@@ -199,6 +199,7 @@ my $head-core-size = 16;
 
 sub do-pdf-language-samples(
     $font-ref is copy,
+    :@faces,
     :$ofile is copy,
     # default options if NOT explicitly entered
     :$font-size = $default-font-size,
@@ -245,7 +246,7 @@ sub do-pdf-language-samples(
         $ofile ~= "-samples.pdf";
     }
 
-    unless $font-ref.defined and ($font-ref ~~ /\S/) {
+    unless $font-ref.defined { # and %fonts{$font-ref}:exists { # ($font-ref ~~ /\S/) {
         $font-ref = "NotoSerif-Regular";
         # but that restricts the output choices
         if $all or $lang {

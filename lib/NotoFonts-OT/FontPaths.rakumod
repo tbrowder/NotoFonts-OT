@@ -19,10 +19,7 @@ sub get-font-file-paths-hash(:$debug --> Hash) is export {
     # from the Google Noto fonts collection
     # only OpenType fonts wanted
 
-    # Use codes reflecting the Adobe parentage of its class PostScript fonts
-    # I grew up with in the PS days:
-    #
-    # Times-Roman family and font files
+    # Use codes reflecting the Adobe parentage of its class PostScript fonts # I grew up with in the PS days: # # Times-Roman family and font files
     my $fft   = "$fontdir/NotoSerif/NotoSerif-Regular.otf".IO;
     my $fftb  = "$fontdir/NotoSerif/NotoSerif-Bold.otf".IO;
     my $ffti  = "$fontdir/NotoSerif/NotoSerif-Italic.otf".IO;
@@ -124,8 +121,8 @@ sub get-font-file-paths-hash(:$debug --> Hash) is export {
 # total 16 (52)
 
     # Courier/NotoSansMono
-    %fonts<m>   = %fonts<c>; #"NotoSansMono-Regular";    # 9
-    %fonts{9}   = %fonts<c>; #"NotoSansMono-Regular";    # 9
+    %fonts<m>   = %fonts<c>;  #"NotoSansMono-Regular";   # 9
+    %fonts{9}   = %fonts<c>;  #"NotoSansMono-Regular";   # 9
     %fonts<mb>  = %fonts<cb>; #"NotoSansMono-Bold";      # 10
     %fonts{10}  = %fonts<cb>; #"NotoSansMono-Bold";      # 10
 # total 4 (46)
