@@ -1,0 +1,135 @@
+=begin pod
+
+=head1 NAME
+
+B<GNU::FreeFont-OTF> - Provides a collection of GNU FreeType fonts for
+use in Raku PDF creation
+
+=head1 SYNOPSIS
+
+=begin code :lang<raku>
+use Test;
+use PDF::Content;
+use GNU::FreeFont-OTF;
+
+# Use the provided class to create individual font objects
+# of the desired font face:
+my $ff = GNU::FreeFont-OTF.new;
+
+# Select the GNU FreeFont 'Free Serif' to be loaded
+# as a PDF font object to be used to print text on a PDF page:
+my $font  = $ff.get-font: "Free Serif";
+isa-ok $font, PDF::Content::FontObj;
+# OUTPUT:
+ok 1 - The object is-a 'PDF::Content::FontObj'
+1..1
+=end code
+
+=head1 DESCRIPTION
+
+B<GNU::FreeFont-OTF> is a Raku package that provides easy handling of
+the set of GNU FreeFont OpenType fonts which descended from the
+classic Adobe Type 1 free fonts (shown in Table 2 below). Unlike the
+original Adobe fonts, these fonts also include many hundreds of Unicode
+characters that can be used with many languages. The fonts are also
+among the few, freely-available fonts that have Type 1 kerning.
+
+See L<GNU FreeFont|https://www.gnu.org/software/freefont/sources/> for
+much more information on the sources and Unicode coverage of the
+GNU FreeFonts collection.
+
+=head1 Installation requirements
+
+Your system may not have all the required packages to support this
+Raku module. See L<Installation |./Installation.md> for those
+requirements to ensure they are installed before running C<zef install
+GNU::FreeFont-OTF>.
+
+=head1 Using this module
+
+The following tables show the hash codes (keys) to use to select the
+desired font objects. The first table uses codes derived from the GNU
+FreeFont font family name plus any other descriptors: weight ('Bold'),
+and slant ('italic' or 'oblique'). The second table shows the Adobe
+heritage font name from which it was derived.
+
+Note the I<Code> and I<Code2> columns. Each row contains equivalent
+code you may use to select the desired GNU FreeFont face.
+
+You may also use the font name in the first column or the reference number
+to select the font.
+
+=head2 Font samples
+
+This package includes an installed Raku script, C<make-gnu-ff-samples>, to
+produce a page of I<pangrams> in several languages for a selected font. 
+(See more information about pangrams and a large list of them for many 
+languages at L<https://clagnut.com>.)
+
+Please create an issue if you want one changed or added for your language. 
+Languages currently shown are:
+Z<begin lang list>
+=item de - German
+=item en - English
+=item es - Spanish
+=item fr - French
+=item id - Indonesian
+=item it - Italian
+=item nb - Norwegian (Bokmål)
+=item nl - Dutch
+=item nn - Norwegian (Nyorsk)
+=item pl - Polish
+=item ro - Romanian
+=item ru - Russian
+=item uk - Ukranian
+Z<end lang list>
+
+=head2 Table 1
+
+=begin table :caption<The GNU FreeFont Collection>
+GNU FreeFont           | Code | Code2 | Reference No.
+-----------------------+------+--------------------------
+Free Serif             | se   | t     | 1
+Free Serif Bold        | seb  | tb    | 2
+Free Serif Italic      | sei  | ti    | 3
+Free Serif Bold Italic | sebi | tbi   | 4
+Free Sans              | sa   | h     | 5
+Free Sans Bold         | sab  | hb    | 6
+Free Sans Oblique      | sao  | ho    | 7
+Free Sans Bold Oblique | sabo | hbo   | 8
+Free Mono              | m    | c     | 9
+Free Mono Bold         | mb   | cb    | 10
+Free Mono Oblique      | mo   | co    | 11
+Free Mono Bold Oblique | mbo  | cbo   | 12
+=end table
+
+=head2 Table 2
+
+=begin table :caption<The Equivalent Adobe Type 1 Fonts>
+Adobe Type 1 Name      | Code | Code2 | Reference No.
+-----------------------+------+--------------------------
+Times                  | se   | t     | 1
+Times Bold             | seb  | tb    | 2
+Times Italic           | sei  | ti    | 3
+Times Bold Italic      | sebi | tbi   | 4
+Helvetica              | sa   | h     | 5
+Helvetica Bold         | sab  | hb    | 6
+Helvetica Oblique      | sao  | ho    | 7
+Helvetica Bold Oblique | sabo | hbo   | 8
+Courier                | m    | c     | 9
+Courier Bold           | mb   | cb    | 10
+Courier Oblique        | mo   | co    | 11
+Courier Bold Oblique   | mbo  | cbo   | 12
+=end table
+
+=head1 AUTHOR
+
+Tom Browder <tbrowder@acm.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+© 2025 Tom Browder
+
+This library is free software; you may redistribute it or modify it under the Artistic License 2.0.
+
+=end pod
