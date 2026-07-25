@@ -1,7 +1,6 @@
 #use OO::Monitors;
 
-#unit monitor NotoFonts-OT;
-unit class  NotoFonts-OT;
+unit monitor NotoFonts-OT;
 
 use MacOS::NativeLib "*";
 use PDF::Font::Loader::HarfBuzz;
