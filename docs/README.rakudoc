@@ -2,25 +2,77 @@
 
 =head1 NAME
 
-B<NotoFonts-OT> - Provides routines for using the Google Noto fonts in OpenType format 
+B<NotoFonts-OT> - Provides a collection of Google's Noto OpenType fonts for
+use in Raku PDF creation
 
-In order to use the fonts they must be downloaded by the user or 
+In order to use the fonts, they must be downloaded by the user or 
 by the system administrator to a location defined in environment 
 variable C<NOTO_FONTS_DIR>. In directory C<./sbin> is a bash script 
 to download the 10 fonts that are the equivalent of the original 
 Adobe fonts.
 
+Note that there are many more fonts available and more
+weight variations may be added later.
+	
 =head1 SYNOPSIS
 
 =begin code :lang<raku>
-
+use Test;
+use PDF::Content;
 use NotoFonts-OT;
 
+# Use the provided class to create individual font objects
+# of the desired font face:
+my $nf = NotoFonts-OT.new;
+
+# Now the $nf object can provide the desired loaded fonts.
+
+# Select the Noto font 'NotoSerif-Regular' to be loaded
+# as a PDF font object to be used to print text on a PDF page:
+my $font = $nf.get-font: "Serif";
+isa-ok $font, PDF::Content::FontObj;
+# OUTPUT:
+ok 1 - The object is-a 'PDF::Content::FontObj'
+1..1
 =end code
 
 =head1 DESCRIPTION
 
 B<NotoFonts-OT> is a package that p
+
+=head2 Table 1
+
+=begin table :caption<The Noto Fonts Collection>
+Noto Font              | Code | Code2 | Reference No.
+-----------------------+------+--------------------------
+Noto Serif Regular     | se   | t     | 1
+Noto Serif Bold        | seb  | tb    | 2
+Noto Serif Italic      | sei  | ti    | 3
+Noto Serif Bold Italic | sebi | tbi   | 4
+Noto Sans Regular      | sa   | h     | 5
+Noto Sans Bold         | sab  | hb    | 6
+Noto Sans Italic       | sai  | ho    | 7
+Noto Sans Bold Italic  | sabi | hbo   | 8
+Noto Sans Mono Regular | m    | c     | 9
+Noto Sans Mono Bold    | mb   | cb    | 10
+=end table
+
+=head2 Table 2
+
+=begin table :caption<The Equivalent Adobe Type 1 Fonts>
+Adobe Type 1 Name      | Code | Code2 | Reference No.
+-----------------------+------+--------------------------
+Times                  | se   | t     | 1
+Times Bold             | seb  | tb    | 2
+Times Italic           | sei  | ti    | 3
+Times Bold Italic      | sebi | tbi   | 4
+Helvetica              | sa   | h     | 5
+Helvetica Bold         | sab  | hb    | 6
+Helvetica Oblique      | sai  | ho    | 7
+Helvetica Bold Oblique | sabi | hbo   | 8
+Courier                | m    | c     | 9
+Courier Bold           | mb   | cb    | 10
+=end table
 
 =head1 AUTHOR
 
