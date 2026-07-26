@@ -4,8 +4,8 @@ use PDF::Lite;
 use PDF::Font::Loader :load-font;#= print a sample text for some language and font
 use PDF::Content::Page :PageSizes;   # A4, Lett#= print a sample text for some language and font
 
-use NotoFonts-OT::Vars;
-use NotoFonts-OT::FontPaths;
+use NotoFonts::OT::Vars;
+use NotoFonts::OT::FontPaths;
 
 #= print a sample text for some language and font
 sub put-text-sample(
@@ -360,7 +360,7 @@ sub do-pdf-language-samples(
     my %samples := try %default-samples
         orelse die q:to/HERE/;
         FATAL: This routine expects %default-samples to be defined in
-            NotoFonts-OT::Subs
+            NotoFonts::OT::Subs
         HERE
 
     my %names;

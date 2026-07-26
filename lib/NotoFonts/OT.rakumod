@@ -1,40 +1,38 @@
 use OO::Monitors;
 
-unit monitor NotoFonts::OT;
-
+#unit monitor NotoFonts::OT;
+unit module NotoFonts::OT;
 
 use MacOS::NativeLib "*";
 
-#=begin comment
 use PDF::Font::Loader::HarfBuzz;
 use PDF::Font::Loader :load-font;
 use PDF::Content;
 use PDF::Content::FontObj;
 use PDF::Lite;
-#use PDF::API6;
 use FontConfig;
-#=end comment
 
-
-#=finish
-#=begin comment
 use NotoFonts::OT::Download;
 use NotoFonts::OT::FontPaths;
 use NotoFonts::OT::Registry;
-use NotoFonts::OT::Subs;
+
+# warning: the Subs module is NOT usable with this module
+#use NotoFonts::OT::Subs;
 use NotoFonts::OT::Vars;
 
-has IO::Path $!registry-dir;
-has %!fonts;
+monitor NotoFontsOT {
 
-submethod BUILD {
+has IO::Path $.registry-dir;
+has %.fonts;
+
+submethod TWEAK {
     my $env-name = "NOTO_FONTS_DIR";
 
-    die "Environment variable $env-name is not defined"
+    say "Environment variable $env-name is not defined"
         unless %*ENV{$env-name}:exists;
 
-    die "Environment variable $env-name is empty"
-        unless %*ENV{$env-name}.exists;
+    say "Environment variable $env-name is empty"
+        unless %*ENV{$env-name}:exists;
 
     $!registry-dir = %*ENV{$env-name}.IO;
 }
@@ -46,7 +44,7 @@ method list-fonts(
         say $name;
     }
     say();
-    say "Registry directoru: $!registry-dir";
+    say "Registry directory: $!registry-dir";
 }
 
 method 
@@ -58,7 +56,7 @@ get-font(
     ; # ok
 }
 
+}
 
-sub get-font(
+#sub get-font(
 
-=end comment
