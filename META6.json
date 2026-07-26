@@ -9,6 +9,7 @@
     "MacOS::NativeLib",
     "OO::Monitors",
     "PDF::Content",
+    "FontConfig",
     "PDF::Content::FontObj",
     "PDF::Font::Loader",
     "PDF::Font::Loader::HarfBuzz",
