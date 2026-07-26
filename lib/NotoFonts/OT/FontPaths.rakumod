@@ -4,7 +4,7 @@ use MacOS::NativeLib "*";
 
 our $fontdir is export = %*ENV<NOTO_FONTS_OTF>.IO;
 our &font-paths is export = &get-font-file-paths-hash;
-sub get-font-file-paths-hash(:$debug --> Hash) is export {
+sub get-font-file-paths-hash(:$debug --> Hash) { #is export {
     unless $fontdir.d {
         print qq:to/HERE/;
         FATAL: The required font directory '$fontdir' 
@@ -19,7 +19,8 @@ sub get-font-file-paths-hash(:$debug --> Hash) is export {
     # from the Google Noto fonts collection
     # only OpenType fonts wanted
 
-    # Use codes reflecting the Adobe parentage of its class PostScript fonts # I grew up with in the PS days: # # Times-Roman family and font files
+    # Use codes reflecting the Adobe parentage of its class PostScript fonts 
+    # I grew up with in the PS days: # # Times-Roman family and font files
     my $fft   = "$fontdir/NotoSerif/NotoSerif-Regular.otf".IO;
     my $fftb  = "$fontdir/NotoSerif/NotoSerif-Bold.otf".IO;
     my $ffti  = "$fontdir/NotoSerif/NotoSerif-Italic.otf".IO;

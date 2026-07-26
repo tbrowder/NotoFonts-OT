@@ -82,6 +82,7 @@ print qq:to/HERE/;
 HERE
 } # end of sub help
 
+=begin comment
 sub resolve-font-ref(
     $font-ref is copy,
     :$debug,
@@ -185,7 +186,7 @@ sub resolve-font-ref(
     =end comment
 
 } # end of sub resolve-font-ref
-
+=end comment
 # some default settings for the rest of the module
 # removed from its original place
 # put in Vars later
@@ -197,6 +198,7 @@ my $head-sub  = PDF::Lite.new.core-font(:family<Helvetica>); # default: regular
 # other sizes may need to be modified after seeing real output:
 my $head-core-size = 16;
 
+=begin comment
 sub do-pdf-language-samples(
     $font-ref is copy,
     :@faces,
@@ -257,7 +259,7 @@ sub do-pdf-language-samples(
 
     my $font-path = resolve-font-ref $font-ref;
 
-=begin comment
+    =begin comment
     # moved up and out of this block
     # Note: font-size is only for the body text
     # other sizes may need to be modified after seeing real output:
@@ -265,7 +267,7 @@ sub do-pdf-language-samples(
 
     my $loaded-font = try { load-font :file($font-path) } //
             die "Could not find a Noto font at file ‘$font-path’. Is it installed?";
-=end comment
+    =end comment
 
     my $loaded-font = try { load-font :file($font-path) } //
             die "Could not find a Noto font at file ‘$font-path’. Is it installed?";
@@ -324,7 +326,7 @@ sub do-pdf-language-samples(
     }
     $y -= 26;   # add some vertical space after the title block
 
-=begin comment
+    =begin comment
     # Helper to start a fresh page when we run out of space
     # TODO if possible, make it an independent sub at the module top level
     # the replacement is named: do-new-page
@@ -354,7 +356,7 @@ sub do-pdf-language-samples(
         }
         $y -= 20;
     }
-=end comment
+    =end comment
 
     # --- Body: each entry in %default-samples is a (language => text) pair ---
     my %samples := try %default-samples
@@ -537,3 +539,4 @@ sub show-lang-list(
     }
     $lang-list;
 } # end of sub show-lang-list
+=end comment

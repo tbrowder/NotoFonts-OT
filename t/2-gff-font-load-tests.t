@@ -11,16 +11,18 @@ use PDF::Content;
 use PDF::Content::FontObj;
 use PDF::Lite;
 
-use NotoFonts-OT;
-use NotoFonts-OT::FontPaths;
+use NotoFonts::OT;
+use NotoFonts::OT::FontPaths;
 
 my ($font-path, $font-path2);
 my ($font, $font2, $code);
 
-my $ff = NotoFonts-OT.new;
-isa-ok $ff, NotoFonts-OT, "good NotoFonts-OT object";
+my $ff = NotoFonts::OT.new;
 
-my %fonts = get-font-file-paths-hash;
+isa-ok $ff, NotoFonts::OT, "good NotoFonts-OT object";
+
+#my %fonts = get-font-file-paths-hash;
+my %fonts = font-paths;
 isa-ok %fonts, Hash, "good Hash of font paths";
 
 my @k  = %fonts.keys.sort;
