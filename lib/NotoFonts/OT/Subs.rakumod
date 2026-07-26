@@ -1,4 +1,4 @@
-unit module NotoFonts-OT::Subs;
+unit module NotoFonts::OT::Subs;
 
 use PDF::Lite;
 use PDF::Font::Loader :load-font;#= print a sample text for some language and font

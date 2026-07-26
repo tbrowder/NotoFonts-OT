@@ -1,6 +1,6 @@
 use v6.d;
 
-unit class NotoFonts-OT::Registry;
+unit class NotoFonts::OT::Registry;
 
 my constant %FONT-DATA = (
     'serif' => {

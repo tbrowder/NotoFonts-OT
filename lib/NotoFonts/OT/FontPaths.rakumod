@@ -1,4 +1,4 @@
-unit module NotoFonts-OT::FontPaths;
+unit module NotoFonts::OT::FontPaths;
 
 use MacOS::NativeLib "*";
 

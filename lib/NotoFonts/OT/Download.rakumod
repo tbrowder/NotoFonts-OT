@@ -1,13 +1,13 @@
 use v6.d;
 
-unit module NotoFonts-OT::Download;
+unit module NotoFonts::OT::Download;
 
-use NotoFonts-OT::Registry;
+use NotoFonts::OT::Registry;
 
 my constant $BASE-URL =
     'https://notofonts.github.io/latin-greek-cyrillic/fonts';
 
-my NotoFonts-OT::Registry $REGISTRY = NotoFonts-OT::Registry.new;
+my NotoFonts::OT::Registry $REGISTRY = NotoFonts::OT::Registry.new;
 
 sub font-url(Str:D $family, Str:D $face = 'regular' --> Str:D) is export {
     my $directory = $REGISTRY.family-directory($family);

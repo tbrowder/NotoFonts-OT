@@ -1,4 +1,4 @@
-unit module NotoFonts-OT::Vars;
+unit module NotoFonts::OT::Vars;
 
 our constant %default-samples is export = %(
     # keyed by two-character ISO language code
