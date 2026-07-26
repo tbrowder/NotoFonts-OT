@@ -14,10 +14,7 @@ use NotoFonts-OT::Registry;
 use NotoFonts-OT::Subs;
 use NotoFonts-OT::Vars;
 
-#unit monitor NotoFonts-OT;
-unit module  NotoFonts-OT;
-
-#class NotoFonts is export {
+unit monitor NotoFonts-OT;
 
 has IO::Path $!registry-dir;
 has %!fonts;
@@ -52,5 +49,4 @@ get-font(
     # given a "code", return a FontObj
     ; # ok
 }
-# } # end class NotoFontz-OT
 
