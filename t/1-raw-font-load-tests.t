@@ -12,11 +12,9 @@ use PDF::Content::FontObj;
 use PDF::Lite;
 
 # testing the file path getter:
-#use NotoFonts-OT;
-use NotoFonts::OT::FontPaths;
-#use NotoFonts::OT::Subs;
-
-my %fonts = get-font-file-paths-hash;
+use NotoFonts-OT;
+my $pf = NotoFonts-OT.new;
+my %fonts = $pf.get-font-file-paths-hash;
 
 my ($font-path, $font-path2, $font-path3, $font-path4);
 my ($font, $font2, $font3, $font4);

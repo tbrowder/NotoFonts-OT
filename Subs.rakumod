@@ -1,11 +1,11 @@
-unit module NotoFonts::OT::Subs;
+unit module NotoFonts-OT::Subs;
 
 use PDF::Lite;
 use PDF::Font::Loader :load-font;#= print a sample text for some language and font
 use PDF::Content::Page :PageSizes;   # A4, Lett#= print a sample text for some language and font
 
-use NotoFonts::OT::Vars;
-use NotoFonts::OT::FontPaths;
+use NotoFonts-OT::Vars;
+use NotoFonts-OT::FontPaths;
 
 #= print a sample text for some language and font
 sub put-text-sample(

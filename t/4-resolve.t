@@ -12,14 +12,14 @@ use PDF::Content::FontObj;
 use PDF::Lite;
 
 use NotoFonts-OT;
-use NotoFonts-OT::FontPaths;
-use NotoFonts-OT::Subs;
+#use NotoFonts-OT::FontPaths;
+#use NotoFonts-OT::Subs;
 use NotoFonts-OT::Vars;
 
 my ($font-path, $font-path2);
 my ($font, $font2, $code);
 
-# test the resolve-fontref sub
+# test the resolve-fontref method
 
 my $ff = NotoFonts-OT.new;
 isa-ok $ff, NotoFonts-OT, "good class object";
