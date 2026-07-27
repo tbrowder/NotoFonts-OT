@@ -282,13 +282,13 @@ sub do-pdf-language-samples(
         say "DEBUG: input font ref: $font-ref";
     }
 
-=begin comment
+    =begin comment
     # moved up and out of this block
     # A bold core-font for headings (portable even if GNU FreeFont is missing)
     #   face only
     my $head-core = PDF::Lite.new.core-font(:family<Helvetica>, :weight<bold>);
     my $head-sub  = PDF::Lite.new.core-font(:family<Helvetica>); # default: regular
-=end comment
+    =end comment
 
     # --- Make a new PDF (portrait page-size) ---
     my PDF::Lite $pdf .= new;

@@ -24,6 +24,7 @@ use NotoFonts::OT::Vars;
 
 has IO::Path $.registry-dir;
 has %!fonts;
+has $!debug;
 
 method list-fonts(
     --> Nil
@@ -55,7 +56,7 @@ submethod TWEAK {
         unless %*ENV{$env-name}:exists;
 
     $!registry-dir = %*ENV{$env-name}.IO;
-    %!fonts = get-font-file-paths-hash(:$debug);
+    %!fonts = get-font-file-paths-hash(:$!debug);
 }
 
 our $fontdir is export = %*ENV<NOTO_FONTS_OTF>.IO;
