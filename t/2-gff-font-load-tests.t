@@ -37,5 +37,4 @@ $font2 = $nf.get-font: <m>;
 isa-ok $font, PDF::Content::FontObj;
 isa-ok $font2, PDF::Content::FontObj;
 
-
 done-testing;

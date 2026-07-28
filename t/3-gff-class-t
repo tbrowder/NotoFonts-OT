@@ -12,44 +12,28 @@ use PDF::Content::FontObj;
 use PDF::Lite;
 
 use NotoFonts-OT;
-#use NotoFonts-OT::FontPaths;
 
-my $ff = NotoFonts-OT.new;
+my $nf = NotoFonts-OT.new;
 
-isa-ok $ff, NotoFonts-OT;
+isa-ok $nf, NotoFonts-OT;
 
 if $debug {
     say "WARNING: This test MUST pass in order to publish";
-#   exit;
 }
 
-my %fonts = get-font-file-paths-hash;
-my $last-font;
 my @codes = 't', 'se', 1;
 for @codes.kv -> $i, $code {
-#   my $f = $ff.get-font: $fnam;
-    my $fnam = %fonts{$code};
-    my $f = load-font :file($fnam);
+    my $f = $nf.get-font: $code;
     isa-ok $f, PDF::Content::FontObj;
+    my $fnam = $f.font-name;
+    is $fnam, "NotoSerif-Regular", "font knows its name";
+}
 
-    =begin comment
-    if $i {
-        is $f, $last-font;
-    }
-    =end comment
-
-    # save for the next comparison
-    $last-font = $f;
+# check ALL fonts load;
+for $nf.list-font-codes.sort -> $code {
+    my $f = $nf.get-font: $code;
+    isa-ok $f, PDF::Content::FontObj;
+    say $f.font-name if $debug;
 }
 
 done-testing;
-=finish
-
-# check ALL fonts load;
-#for $ff.codes-list.sort -> $code {
-for %fonts.keys -> $code {
-    #my $f = $ff.get-font: $code;
-    my $f = load-font :file($code);
-    say $f.font-name;
-}
-

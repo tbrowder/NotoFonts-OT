@@ -40,12 +40,17 @@ method list-font-names(
 }
 
 method list-font-codes(
+    :$debug,
+    --> List
 ) {
-    for %!fonts.keys.sort -> $name {
-        say $name;
+    my @codes;
+    for %!fonts.keys.sort -> $code {
+        say $code if $debug;
+        @codes.push: $code;
     }
-    say();
-    say "Registry directory: $!registry-dir";
+    say() if $debug;
+    #say "Registry directory: $!registry-dir";
+    return @codes;
 }
 
 method 
