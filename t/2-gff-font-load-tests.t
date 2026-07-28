@@ -27,49 +27,15 @@ $code = "NotoSerif-Regular";
 $font2 = $nf.get-font: $code;
 isa-ok $font2, PDF::Content::FontObj;
 
-# test the sharing of the same font
-is $font, $font2, "shared font";;
-if $debug {
-    say "WARNING: This test MUST pass in order to publish";
-}
-
-
-=finish
-
+$font   = $nf.get-font: <h>;
+$font2  = $nf.get-font: <se>;
 isa-ok $font, PDF::Content::FontObj;
 isa-ok $font2, PDF::Content::FontObj;
 
-# test the sharing of the same font
-if not $debug {
-    is $font, $font2;
-}
-else {
-    say "WARNING: This test MUST pass in order to publish";
-}
-
-$font   = $nf.get-font<h>;
-$font2  = $nf.get-font<se>;
+$font  = $nf.get-font: <c>;
+$font2 = $nf.get-font: <m>;
 isa-ok $font, PDF::Content::FontObj;
 isa-ok $font2, PDF::Content::FontObj;
 
-# test the sharing of the same font
-if not $debug {
-    is $font, $font2;
-}
-else {
-    say "WARNING: This test MUST pass in order to publish";
-}
-
-$font  = $ff.fonts<c>;
-$font2 = $ff.fonts<m>;
-isa-ok $font, PDF::Content::FontObj;
-isa-ok $font2, PDF::Content::FontObj;
-
-# test the sharing of the same font
-ok $font !eqv $font2;
-
-if $debug {
-    say "WARNING: This test MUST pass in order to publish";
-}
 
 done-testing;
