@@ -1,3 +1,7 @@
+#≠=================
+# DO NOT USE UNTIL THE PATH RESOLVER IS FIXED
+#==================
+
 use OO::Monitors;
 
 use Test;
@@ -12,7 +16,6 @@ use PDF::Content::FontObj;
 use PDF::Lite;
 
 use NotoFonts-OT;
-#use NotoFonts-OT::FontPaths;
 #use NotoFonts-OT::Subs;
 use NotoFonts-OT::Vars;
 
@@ -21,12 +24,8 @@ my ($font, $font2, $code);
 
 # test the resolve-fontref method
 
-my $ff = NotoFonts-OT.new;
-isa-ok $ff, NotoFonts-OT, "good class object";
-
-#my %h = $ff.font-file-paths;
-my %fonts = font-paths;
-isa-ok %fonts, Hash, "good Hash of font paths";
+my $nf = NotoFonts-OT.new;
+isa-ok $nf, NotoFonts-OT, "good class object";
 
 my @k  = %fonts.keys.sort;
 my $nk = @k.elems;

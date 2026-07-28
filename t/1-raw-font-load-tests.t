@@ -14,6 +14,7 @@ use PDF::Lite;
 # testing the file path getter:
 use NotoFonts-OT;
 my $nf = NotoFonts-OT.new;
+
 isa-ok $nf, NotoFonts-OT;
 say $nf.list-font-codes;
 say $nf.list-font-names;
