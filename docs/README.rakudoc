@@ -11,8 +11,9 @@ variable C<NOTO_FONTS_OTF>. In directory C<./sbin> is a bash script
 to download the 10 fonts that are the equivalent of the original 
 Adobe fonts.
 
-Note that there are many more fonts available and more
-weight variations may be added later.
+Note that there are many more fonts available, and more
+weight variations may be added here later. Please file an
+issue if you are interested.
 	
 =head1 SYNOPSIS
 
@@ -25,23 +26,30 @@ use NotoFonts-OT;
 # of the desired font face:
 my $nf = NotoFonts-OT.new;
 
-# Now the $nf object can provide the desired loaded fonts.
+# Now the $nf object can provide the desired loaded fonts
+# using C<$nf.get-font: X> where X is any of the code
+# references in Tables 1 and 2 below.
 
 # Select the Noto font 'NotoSerif-Regular' to be loaded
-# as a PDF font object to be used to print text on a PDF page:
-my $font = $nf.get-font: "Serif";
+# as a PDF font object to be used to print text on a PDF page.
+# Use a code reference from Table 1:
+my $font = $nf.get-font: 1;
 isa-ok $font, PDF::Content::FontObj;
 # OUTPUT:
 ok 1 - The object is-a 'PDF::Content::FontObj'
 1..1
 =end code
 
+That font object, C<$font>, can be used for most of the Raku
+PDF modules requiring a font object. File an issue if you
+find a problem.
+
 =head1 DESCRIPTION
 
 =head2 Table 1
 
 =begin table :caption<The Noto Fonts Collection>
-Noto Font              | Code | Code2 | Reference No.
+Noto Font Name         | Code | Code2 | Reference No.
 -----------------------+------+--------------------------
 Noto Serif Regular     | se   | t     | 1
 Noto Serif Bold        | seb  | tb    | 2
