@@ -13,12 +13,23 @@ use PDF::Lite;
 
 # testing the file path getter:
 use NotoFonts-OT;
-my $pf = NotoFonts-OT.new;
-my %fonts = $pf.get-font-file-paths-hash;
+my $nf = NotoFonts-OT.new;
+isa-ok $nf, NotoFonts-OT;
+#say $nf.list-font-codes;
+say $nf.list-font-names;
+
 
 my ($font-path, $font-path2, $font-path3, $font-path4);
 my ($font, $font2, $font3, $font4);
-$font-path  = %fonts<t>;
+
+$font = $nf.get-font: 1;
+isa-ok $font, PDF::Content::FontObj;
+#done-testing;
+
+#=finish
+$font-path = $nf.fonts<t>.IO;
+=finish
+
 $font-path2 = %fonts<sa>;
 $font-path3 = %fonts<1>;
 $font-path4 = %fonts{1};

@@ -1,7 +1,6 @@
 use OO::Monitors;
 
 unit monitor NotoFonts-OT;
-#unit module NotoFonts-OT;
 
 use MacOS::NativeLib "*";
 
@@ -13,19 +12,34 @@ use PDF::Lite;
 use FontConfig;
 
 use NotoFonts-OT::Download;
-#use NotoFonts-OT::FontPaths;
 use NotoFonts-OT::Registry;
 
 # warning: the Subs module is NOT usable with this module
-#use NotoFonts-OT::Subs;
 use NotoFonts-OT::Vars;
 
 has IO::Path $.registry-dir;
 has %!fonts;
 has $!debug;
 
-method list-fonts(
-    --> Nil
+method list-font-names(
+    :$debug,
+) {
+    my %names;
+    for %!fonts.values.sort -> $name is copy {
+        $name .= basename;
+        
+        next if %names{$name}:exists;
+        %names{$name} = 1;
+        say $name if $debug;
+    }
+    for %names.keys.sort -> $name {
+        say $name if 1 or $debug;
+    }
+    say();
+    say "Registry directory: $!registry-dir";
+}
+
+method list-font-codes(
 ) {
     for %!fonts.keys.sort -> $name {
         say $name;
@@ -51,7 +65,7 @@ get-font(
 }
 
 submethod TWEAK {
-    my $env-name = "NOTO_FONTS_DIR";
+    my $env-name = "NOTO_FONTS_OTF";
 
     say "Environment variable $env-name is not defined"
         unless %*ENV{$env-name}:exists;
@@ -64,7 +78,7 @@ submethod TWEAK {
 }
 
 our $fontdir is export = %*ENV<NOTO_FONTS_OTF>.IO;
-our &font-paths is export = &get-font-file-paths-hash;
+our %font-paths is export = self.get-font-file-paths-hash;
 
 method get-font-file-paths-hash(:$debug --> Hash) { #is export {
     unless $fontdir.d {
