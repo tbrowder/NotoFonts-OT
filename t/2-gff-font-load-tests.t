@@ -12,53 +12,24 @@ use PDF::Content::FontObj;
 use PDF::Lite;
 
 use NotoFonts-OT;
-#use NotoFonts-OT::FontPaths;
 
-my ($font-path, $font-path2);
 my ($font, $font2, $code);
 
-my $ff = NotoFonts-OT.new;
+my $nf = NotoFonts-OT.new;
 
-isa-ok $ff, NotoFonts-OT, "good NotoFonts-OT object";
+isa-ok $nf, NotoFonts-OT, "good NotoFonts-OT object";
 
-#my %fonts = get-font-file-paths-hash;
-my %fonts = font-paths;
-isa-ok %fonts, Hash, "good Hash of font paths";
-
-my @k  = %fonts.keys.sort;
-my $nk = @k.elems;
-is $nk, 56, "must have 56 elements";
-
-isa-ok %fonts{@k.head}.IO, IO::Path, "valid path";
-$code = "t";
-$font-path = %fonts<t>.IO;
-isa-ok $font-path, IO::Path, "valid path";
-
-$font = PDF::Font::Loader.load-font: :file($font-path);
+$font = $nf.get-font: 1;
+isa-ok $font, PDF::Content::FontObj;
 is $font.font-name, "NotoSerif-Regular", "FontObj knows its name";
 
-my $file = %fonts<hob>; #$ff.get-font-path: "hob";
-	
-$font = load-font :$file;
-isa-ok $font, PDF::Content::FontObj;
-
-$file = %fonts<1>;
-$font = load-font :$file;
-isa-ok $font, PDF::Content::FontObj;
-
 $code = "NotoSerif-Regular";
-$file = %fonts{$code};
-$font = load-font :$file;
-isa-ok $font, PDF::Content::FontObj;
-
-done-testing;
-=finish
+$font2 = $nf.get-font: $code;
+isa-ok $font2, PDF::Content::FontObj;
 
 # test the sharing of the same font
-if not $debug {
-    is $font, $font2;
-}
-else {
+is $font, $font2, "shared font";;
+if $debug {
     say "WARNING: This test MUST pass in order to publish";
 }
 
@@ -76,8 +47,8 @@ else {
     say "WARNING: This test MUST pass in order to publish";
 }
 
-$font   = $ff.fonts<h>;
-$font2  = $ff.fonts<se>;
+$font   = $nf.get-font<h>;
+$font2  = $nf.get-font<se>;
 isa-ok $font, PDF::Content::FontObj;
 isa-ok $font2, PDF::Content::FontObj;
 
@@ -95,10 +66,9 @@ isa-ok $font, PDF::Content::FontObj;
 isa-ok $font2, PDF::Content::FontObj;
 
 # test the sharing of the same font
-if not $debug {
-    is $font, $font2;
-}
-else {
+ok $font !eqv $font2;
+
+if $debug {
     say "WARNING: This test MUST pass in order to publish";
 }
 

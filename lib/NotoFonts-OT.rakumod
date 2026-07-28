@@ -78,9 +78,8 @@ submethod TWEAK {
 }
 
 our $fontdir is export = %*ENV<NOTO_FONTS_OTF>.IO;
-our %font-paths is export = self.get-font-file-paths-hash;
 
-method get-font-file-paths-hash(:$debug --> Hash) { #is export {
+sub get-font-file-paths-hash(:$debug --> Hash) {
     unless $fontdir.d {
         print qq:to/HERE/;
         FATAL: The required font directory '$fontdir' 
