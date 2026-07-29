@@ -1,8 +1,6 @@
 use Test;
 
 use NotoFonts-OT; 
-use NotoFonts-OT::FontPaths; 
-use NotoFonts-OT::Subs; 
 use NotoFonts-OT::Registry; 
 
 my $reg = NotoFonts-OT::Registry.new;
