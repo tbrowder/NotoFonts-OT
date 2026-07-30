@@ -1,4 +1,6 @@
-unit module GNU::FreeFont-OTF::Subs;
+unit module NotoFonts-OT::Samples;
+
+use NotoFonts-OT::Vars;
 
 # copied from GNU::FreeFont-OTF::Subs;
 
@@ -9,174 +11,178 @@ use PDF::Content::Page :PageSizes;   # A4, Lett#= print a sample text for some l
 =begin comment
 use GNU::FreeFont-OTF::Vars;
 use GNU::FreeFont-OTF::FontPaths;
+=end comment
 
 #= print a sample text for some language and font
 sub put-text-sample(
-    $title,   # align left
-    $text,    # align left
-    :$lx!,    # xrefs to the active page space
-    :$rx!,    # xrefs to the active page space
-    :$ty!,    # yrefs to the active page space
-    :$by!,    # yrefs to the active page space
-    :$page!,  # a valid PDF page
-) is export {
-    my $w = $page.media-box[2];
-    my $h = $page.media-box[3];
+		$title,   # align left
+		$text,    # align left
+		:$lx!,    # xrefs to the active page space
+		:$rx!,    # xrefs to the active page space
+		:$ty!,    # yrefs to the active page space
+		:$by!,    # yrefs to the active page space
+		:$page!,  # a valid PDF page
+		) is export {
+	my $w = $page.media-box[2];
+	my $h = $page.media-box[3];
 } # end of sub put-text-sample
 
 my $lang-list;
 my $spaces;
 my $nspaces;
-BEGIN {
-    $lang-list = "";
-    $spaces    = "";
-    $nspaces   = 6;
-    for 1..$nspaces { $spaces ~= " " }
+#BEGIN {
+	$lang-list = "";
+	$spaces    = "";
+	$nspaces   = 6;
+	for 1..$nspaces { $spaces ~= " " }
 
-    for %default-samples.keys.sort -> $k {
-        my $lang = %default-samples{$k}<lang>;
-        $lang-list ~= "\n" if $k;
-        $lang-list ~= "$spaces$k - $lang";
-    }
-}
+	for %default-samples.keys.sort -> $k {
+		my $lang = %default-samples{$k}<lang>;
+		$lang-list ~= "\n" if $k;
+		$lang-list ~= "$spaces$k - $lang";
+	}
+#}
 
 our $default-font-size is export = 11;
+
 sub help() is export {
-print qq:to/HERE/;
-   Writes a portrait PDF showing all language samples using a selected GNU FreeFont
-     face and size.
+	print qq:to/HERE/;
+	Writes a portrait PDF showing all language samples using a selected GNU FreeFont
+		face and size.
 
-   Usage:
+		Usage:
 
-   Modes:
+Modes:
 
-   Options:
+Options:
 
-   font=
-   lang=X
-   all
+		font=
+		lang=X
+		all
 
-   \$font-ref may be:
-     * Int: A reference number from the code tables (1..12)
-     * Str: a code from the code tables
-     * Str: a family name (e.g., "Free Sans")
-     * Str: a path to an .otf (or .ttf) file
+		\$font-ref may be:
+		* Int: A reference number from the code tables (1..12)
+		* Str: a code from the code tables
+		* Str: a family name (e.g., "Free Sans")
+		* Str: a path to an .otf (or .ttf) file
 
-   With only the 'print' input argument, the default output
-     PDF file will be: 'GNU-FreeFont-OTF-samples.pdf'. (Adding
-     other options may result in other default file names.)
-   Otherwise you may choose another path by entering it as:
-       ofile=/path/to/file
+		With only the 'print' input argument, the default output
+		PDF file will be: 'GNU-FreeFont-OTF-samples.pdf'. (Adding
+				other options may result in other default file names.)
+		Otherwise you may choose another path by entering it as:
+		ofile=/path/to/file
 
-   Options:
-     * :page-size<Letter|A4> (default: Letter)
-     * :kerning<True|False>  (default: True)
-     * :font-size(Int > 0)   (default: \$default-font-size)
-     * :lang(Lang code)      (default: False)
+		Options:
+		* :page-size<Letter|A4> (default: Letter)
+		* :kerning<True|False>  (default: True)
+		* :font-size(Int > 0)   (default: \$default-font-size)
+		* :lang(Lang code)      (default: False)
 
-   The following languages have text samples available:
-      {$lang-list}
+		The following languages have text samples available:
+		{$lang-list}
 
-   Renders pages in the given portrait size with ~0.75in margins and adds
-     "n of m" page numbers bottom-right.
+	Renders pages in the given portrait size with ~0.75in margins and adds
+		"n of m" page numbers bottom-right.
 
-   Returns the created file path as IO::Path.
-HERE
+		Returns the created file path as IO::Path.
+		HERE
 } # end of sub help
 
+=begin comment
 sub resolve-font-ref(
-    $font-ref is copy,
-    :$debug,
-    --> IO::Path
-) is export {
+		$font-ref is copy,
+		:$debug,
+		--> IO::Path
+		) is export {
 
-    my %fonts = get-font-file-paths-hash;
-    unless %fonts.defined {
-        die "Could not find font hash '%fonts'. Is it installed?";
-    }
+	my %fonts = get-font-file-paths-hash;
+	unless %fonts.defined {
+		die "Could not find font hash '%fonts'. Is it installed?";
+	}
 
-    # convert inputs to valid font refs
-    my $font-path = "";
-    my $fr = $font-ref;
+# convert inputs to valid font refs
+	my $font-path = "";
+	my $fr = $font-ref;
 
-    # any hyphens or spaces or both?
-    my $sep;
-    my ($has-hyphens, $has-spaces) = 0, 0;
-    if $fr ~~ / '-' / {
-        ++$has-hyphens;
-        $sep = '-';
-        $fr ~~ s:g/'-'+/-/; # rm  xtra hyphens
-    }
-    if $fr ~~ / \h / {
-        ++$has-spaces;
-        $sep = ' ';
-        $fr ~~ s:g/\h+//; # rm spaces
-    }
-    if $has-hyphens and $has-spaces {
-        # remove the spaces
-        $fr ~~ s:g/\h+//; # rm all spaces
-        $sep = '-';
-    }
+# any hyphens or spaces or both?
+	my $sep;
+	my ($has-hyphens, $has-spaces) = 0, 0;
+	if $fr ~~ / '-' / {
+		++$has-hyphens;
+		$sep = '-';
+		$fr ~~ s:g/'-'+/-/; # rm  xtra hyphens
+	}
+	if $fr ~~ / \h / {
+		++$has-spaces;
+		$sep = ' ';
+		$fr ~~ s:g/\h+//; # rm spaces
+	}
+	if $has-hyphens and $has-spaces {
+# remove the spaces
+		$fr ~~ s:g/\h+//; # rm all spaces
+			$sep = '-';
+	}
 
-    # sanity check
-    unless $fr.defined and ($fr ~~ /\S/) {
-        die "FATAL: \$fr is not usable";
-    }
+# sanity check
+	unless $fr.defined and ($fr ~~ /\S/) {
+		die "FATAL: \$fr is not usable";
+	}
 
-    if $has-hyphens {
-        # assume it's mostly correct except ensure pieces are capitalized properly
-        my @parts = $fr.split($sep);
-        unless @parts.elems == 2 { die "unknown font alias '$fr'"; }
-        $fr = "";
-        for @parts.kv -> $i, $p is copy {
-            $p .= tc;
-            if $i {
-                $fr ~= $p ~ '-';
-            }
-            else {
-                $fr ~= $p;
-            }
-        }
-    }
+	if $has-hyphens {
+# assume it's mostly correct except ensure pieces are capitalized properly
+		my @parts = $fr.split($sep);
+		unless @parts.elems == 2 { die "unknown font alias '$fr'"; }
+		$fr = "";
+		for @parts.kv -> $i, $p is copy {
+			$p .= tc;
+			if $i {
+				$fr ~= $p ~ '-';
+			}
+			else {
+				$fr ~= $p;
+			}
+		}
+	}
 
-    # sanity check
-    unless $fr.defined and ($fr ~~ /\S/) {
-        die "FATAL: \$fr is not usable";
-    }
+# sanity check
+	unless $fr.defined and ($fr ~~ /\S/) {
+		die "FATAL: \$fr is not usable";
+	}
 
-    $font-ref = $fr;
+	$font-ref = $fr;
 
-    if $debug {
-        say "DEBUG: calculated \$fr: $fr";
-    }
+	if $debug {
+		say "DEBUG: calculated \$fr: $fr";
+	}
 
-    with $font-ref {
-        my $r = $_;
-        when $r ~~ 1..12 {
-            $font-path = %fonts{$r};
-        }
-        default {
-            $font-path = %fonts{$r};
-        }
-    }
+	with $font-ref {
+		my $r = $_;
+		when $r ~~ 1..12 {
+			$font-path = %fonts{$r};
+		}
+		default {
+			$font-path = %fonts{$r};
+		}
+	}
 
-    unless $font-path.defined and $font-path.IO.r {
-        die qq:to/HERE/;
-        FATAL: Could not find a GNU FreeFont file
-        with font reference '$font-ref'.
-        Is your desired font installed?
+	unless $font-path.defined and $font-path.IO.r {
+		die qq:to/HERE/;
+FATAL: Could not find a GNU FreeFont file
+	       with font reference '$font-ref'.
+	       Is your desired font installed?
 
-        If so, please file an issue describing:
-            + the exact font reference you used
-            + the font you expected to find
-            + the font path on your server
-            + your operating system and version
-        HERE
-    }
+	       If so, please file an issue describing:
+	       + the exact font reference you used
+	       + the font you expected to find
+	       + the font path on your server
+	       + your operating system and version
+	       HERE
+	}
 
-    $font-path;
+	$font-path;
 
 } # end of sub resolve-font-ref
+=end comment
 
 # some default settings for the rest of the module
 # removed from its original place
@@ -188,6 +194,7 @@ my $head-sub  = PDF::Lite.new.core-font(:family<Helvetica>); # default: regular
 # Note: font-size is only for the body text
 # other sizes may need to be modified after seeing real output:
 my $head-core-size = 16;
+my $default-font-size = 11;
 
 sub do-pdf-language-samples(
     $font-ref is copy,

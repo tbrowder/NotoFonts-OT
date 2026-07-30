@@ -6,6 +6,7 @@ my @modules = [
     "NotoFonts-OT::Vars",
     "NotoFonts-OT::Download",
 
+#   "NotoFonts-OT::Samples",
 #   "NotoFonts-OT::Subs",
 #   "NotoFonts-OT::FontPaths",
 ];
