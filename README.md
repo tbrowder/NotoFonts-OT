@@ -5,7 +5,7 @@ NAME
 
 **NotoFonts-OT** - Provides a collection of Google's Noto OpenType fonts for use in Raku PDF creation
 
-In order to use the fonts, they must be downloaded by the user or by the system administrator to a location defined in environment variable `NOTO_FONTS_OTF`. In directory `./sbin` is a bash script to download the 10 fonts that are the equivalent of the original Adobe fonts.
+In order to use the fonts, they must be downloaded by the user or by the system administrator to a location defined in environment variable `NOTO_FONTS_OTF`. In directory `./sbin` is a bash script to download the 10 fonts that are the equivalent of the original Adobe fonts. Note that the variable must be defined and it must point to a valid and usable directory.
 
 Note that there are many more fonts available, and more weight variations may be added here later. Please file an issue if you are interested.
 
@@ -35,10 +35,16 @@ ok 1 - The object is-a 'PDF::Content::FontObj'
 1..1
 ```
 
-That font object, `$font`, can be used for most of the Raku PDF modules requiring a font object. File an issue if you find a problem.
+That font object, `$font`, should be able to be used by all the Raku PDF modules requiring a font object. File an issue if you find a problem.
 
 DESCRIPTION
 ===========
+
+The following tables show the font name, weight, and slant of the 10 fonts approximating the original Adobe Type 1 fonts. The desired font can be selected by using the appropriate Code, Code2, or Refence Number as the input to class merhod `get-font` which returns a PDF font object.
+
+Note the codes are not case sensitive.
+
+Currently there is no other way to select a font, but a more general mmethod will be provided later.
 
 Table 1
 -------
