@@ -30,9 +30,9 @@
   ],
   "source-url": "https://github.com/tbrowder/NotoFonts-OT.git",
   "tags": [
+    "fonts pdf otf"
   ],
   "test-depends": [
-    "fonts pdf otf"
   ],
   "version": "0.0.1"
 }
