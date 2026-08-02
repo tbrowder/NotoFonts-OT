@@ -3,7 +3,6 @@ use OO::Monitors;
 unit monitor NotoFonts-OT;
 
 use MacOS::NativeLib "*";
-
 use PDF::Font::Loader::HarfBuzz;
 use PDF::Font::Loader :load-font;
 use PDF::Content;
@@ -49,12 +48,10 @@ method list-font-codes(
         @codes.push: $code;
     }
     say() if $debug;
-    #say "Registry directory: $!registry-dir";
     return @codes;
 }
 
-method
-get-path(
+method get-path(
     $code	
     --> IO::Path
 ) {
@@ -68,9 +65,7 @@ get-path(
     }
 }
 
-
-method 
-get-font(
+method get-font(
     $code,
     --> PDF::Content::FontObj
 ) {
@@ -80,11 +75,12 @@ get-font(
         return load-font(:file($font-path));
     }
     else {
-        say "ERROR: Unknown font code '$code'";
+        say "ERROR: Unknown font name or code '$code'";
     }
 }
 
 submethod TWEAK {
+    =begin comment
     my $env-name = "NOTO_FONTS_OTF";
 
     say "Environment variable $env-name is not defined"
@@ -95,41 +91,30 @@ submethod TWEAK {
 
     $!registry-dir = %*ENV{$env-name}.IO;
     %!fonts = get-font-file-paths-hash(:$!debug);
+    =end comment
+    %!fonts = get-font-paths-hash(:$!debug);
 }
 
-our $fontdir is export = %*ENV<NOTO_FONTS_OTF>.IO;
-
-sub get-font-file-paths-hash(:$debug --> Hash) {
-    unless $fontdir.d {
-        print qq:to/HERE/;
-        FATAL: The required font directory '$fontdir' 
-               does not exist. All desired Noto OTF fonts
-               must be placed in that directory.
-
-               Exiting...
-        HERE
-        exit(1);
-    }
-
+sub get-font-paths-hash(:$debug --> Hash) {
     # from the Google Noto fonts collection
     # only OpenType fonts wanted
 
     # Use codes reflecting the Adobe parentage of its class PostScript fonts 
     # I grew up with in the PS days: # # Times-Roman family and font files
-    my $fft   = "$fontdir/NotoSerif/NotoSerif-Regular.otf".IO;
-    my $fftb  = "$fontdir/NotoSerif/NotoSerif-Bold.otf".IO;
-    my $ffti  = "$fontdir/NotoSerif/NotoSerif-Italic.otf".IO;
-    my $fftbi = "$fontdir/NotoSerif/NotoSerif-BoldItalic.otf".IO;
+    my $fft   = %?RESOURCES<fonts/NotoSerif/NotoSerif-Regular.otf>.IO;
+    my $fftb  = %?RESOURCES<fonts/NotoSerif/NotoSerif-Bold.otf>.IO;
+    my $ffti  = %?RESOURCES<fonts/NotoSerif/NotoSerif-Italic.otf>.IO;
+    my $fftbi = %?RESOURCES<fonts/NotoSerif/NotoSerif-BoldItalic.otf>.IO;
 
     # Helvetica family and font files
-    my $ffh   = "$fontdir/NotoSans/NotoSans-Regular.otf".IO;
-    my $ffhb  = "$fontdir/NotoSans/NotoSans-Bold.otf".IO;
-    my $ffho  = "$fontdir/NotoSans/NotoSans-Italic.otf".IO;
-    my $ffhbo = "$fontdir/NotoSans/NotoSans-BoldItalic.otf".IO;
+    my $ffh   = %?RESOURCES<fonts/NotoSans/NotoSans-Regular.otf>.IO;
+    my $ffhb  = %?RESOURCES<fonts/NotoSans/NotoSans-Bold.otf>.IO;
+    my $ffho  = %?RESOURCES<fonts/NotoSans/NotoSans-Italic.otf>.IO;
+    my $ffhbo = %?RESOURCES<fonts/NotoSans/NotoSans-BoldItalic.otf>.IO;
 
     # Courier family and font files
-    my $ffc   = "$fontdir/NotoSansMono/NotoSansMono-Regular.otf".IO;
-    my $ffcb  = "$fontdir/NotoSansMono/NotoSansMono-Bold.otf".IO;
+    my $ffc   = %?RESOURCES< "fonts/NotoSansMono/NotoSansMono-Regular.otf>.IO;
+    my $ffcb  = %?RESOURCES< "fonts/NotoSansMono/NotoSansMono-Bold.otf>.IO;
 
     # no Noto Sans equivalent to itlaic version
 

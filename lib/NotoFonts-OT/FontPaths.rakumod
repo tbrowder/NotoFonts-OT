@@ -1,5 +1,31 @@
 unit module NotoFonts-OT::FilePaths;
 
+=begin pod
+
+This module is NOT to be called by the module'parent class.
+It is meant to be used with other modules such as C<App::FontSample>.
+
+The independent subroutines:
+
+=item get-font-path
+=item get-loaded-font
+
+=item list-font-names
+=iten list-font-codes	
+
+=item get-font-paths-hash
+
+=end pod
+
+# need PDF support for loaded fonts
+use MacOS::NativeLib "*";
+use PDF::Font::Loader::HarfBuzz;
+use PDF::Font::Loader :load-font;
+use PDF::Content;
+use PDF::Content::FontObj;
+use PDF::Lite;
+use FontConfig;
+
 my %fonts;
 
 sub list-font-names(
@@ -34,7 +60,13 @@ sub list-font-codes(
     return @codes;
 }
 
-sub get-path(
+sub get-loaded-font(
+    $code	
+    --> IO::Path
+) {
+}
+
+sub get-font-path(
     $code	
     --> IO::Path
 ) {
@@ -49,37 +81,7 @@ sub get-path(
 }
 
 
-sub get-font(
-    $code,
-    :$debug,
-) is export {
-    =begin comment
-    say "Environment variable $env-name is not defined"
-        unless %*ENV{$env-name}:exists;
-
-    say "Environment variable $env-name is empty"
-        unless %*ENV{$env-name}:exists;
-
-    $!registry-dir = %*ENV{$env-name}.IO;
-    =end comment
-
-    %fonts = get-font-file-paths-hash(:$debug);
-}
-
-sub get-font-file-paths-hash(:$debug --> Hash) {
-    =begin comment
-    unless $fontdir.d {
-        print qq:to/HERE/;
-        FATAL: The required font directory '$fontdir' 
-               does not exist. All desired Noto OTF fonts
-               must be placed in that directory.
-
-               Exiting...
-        HERE
-        exit(1);
-    }
-    =end comment
-
+sub get-font-paths-hash(:$debug --> Hash) {
     # from the Google Noto fonts collection
     # only OpenType fonts wanted
 
@@ -212,5 +214,4 @@ sub get-font-file-paths-hash(:$debug --> Hash) {
 
     # the final hash:
     return %fonts; # hash of font file paths
-}
-
+} 
