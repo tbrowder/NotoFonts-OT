@@ -63,13 +63,13 @@ sub list-font-codes(
 sub get-loaded-font(
     $code	
     --> IO::Path
-) {
+) is export {
 }
 
 sub get-font-path(
     $code	
     --> IO::Path
-) {
+) is export {
     # given a "code", return a font path
     my $font-path = %fonts{$code} // 0;
     if $font-path.IO.f {
@@ -81,7 +81,10 @@ sub get-font-path(
 }
 
 
-sub get-font-paths-hash(:$debug --> Hash) {
+sub get-font-paths-hash(
+    :$debug 
+    --> Hash
+) is export {
     # from the Google Noto fonts collection
     # only OpenType fonts wanted
 

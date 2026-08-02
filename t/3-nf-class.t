@@ -29,12 +29,9 @@ for @codes.kv -> $i, $code {
     is $fnam, "NotoSerif-Regular", "font knows its name";
 }
 
-done-testing;
-=finish
-
-#=begin comment
 # check ALL fonts load;
 for $nf.list-font-codes.sort -> $code {
+    next if $code ~~ / 
     my $f = $nf.get-font: $code;
     isa-ok $f, PDF::Content::FontObj;
     say $f.font-name if $debug;
