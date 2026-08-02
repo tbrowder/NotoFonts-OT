@@ -16,13 +16,13 @@ use NotoFonts-OT;
 my $nf = NotoFonts-OT.new;
 
 isa-ok $nf, NotoFonts-OT;
-say $nf.list-font-codes;
-say $nf.list-font-names;
+#my @clist = $nf.list-font-codes.words;
+#my @nlist = $nf.list-font-names.words;
 
 for 1..10 -> $n {
-    my $font = $nf.get-font: 1;
+    my $font = $nf.get-font: $n;
     isa-ok $font, PDF::Content::FontObj;
-    my $font-path = $nf.get-path: 1;
+    my $font-path = $nf.get-path: $n;
     isa-ok $font-path, IO::Path;
 }
 

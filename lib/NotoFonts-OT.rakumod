@@ -25,7 +25,9 @@ method list-font-names(
 ) {
     my %names;
     for %!fonts.values.sort -> $name is copy {
-        $name .= basename;
+        next if $name ~~ /raku | OFL /;
+        next unless $name ~~ /\S/;
+        #$name .= basename;
         
         next if %names{$name}:exists;
         %names{$name} = 1;
@@ -34,8 +36,6 @@ method list-font-names(
     for %names.keys.sort -> $name {
         say $name if 1 or $debug;
     }
-    say();
-    say "Registry directory: $!registry-dir";
 }
 
 method list-font-codes(
@@ -44,6 +44,10 @@ method list-font-codes(
 ) {
     my @codes;
     for %!fonts.keys.sort -> $code {
+        next if $code ~~ /raku | OFL /;
+        next unless $code ~~ /\S/;
+        #$name .= basename;
+        
         say $code if $debug;
         @codes.push: $code;
     }
@@ -113,8 +117,8 @@ sub get-font-paths-hash(:$debug --> Hash) {
     my $ffhbo = %?RESOURCES<fonts/NotoSans/NotoSans-BoldItalic.otf>.IO;
 
     # Courier family and font files
-    my $ffc   = %?RESOURCES< "fonts/NotoSansMono/NotoSansMono-Regular.otf>.IO;
-    my $ffcb  = %?RESOURCES< "fonts/NotoSansMono/NotoSansMono-Bold.otf>.IO;
+    my $ffc   = %?RESOURCES<fonts/NotoSansMono/NotoSansMono-Regular.otf>.IO;
+    my $ffcb  = %?RESOURCES<fonts/NotoSansMono/NotoSansMono-Bold.otf>.IO;
 
     # no Noto Sans equivalent to itlaic version
 
