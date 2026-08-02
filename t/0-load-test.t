@@ -5,10 +5,10 @@ my @modules = [
     "NotoFonts-OT::Registry",
     "NotoFonts-OT::Vars",
     "NotoFonts-OT::Download",
+    "NotoFonts-OT::FontPaths",
 
 #   "NotoFonts-OT::Samples",
 #   "NotoFonts-OT::Subs",
-#   "NotoFonts-OT::FontPaths",
 ];
 
 plan @modules.elems;

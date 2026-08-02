@@ -23,14 +23,27 @@
   "provides": {
     "NotoFonts-OT": "lib/NotoFonts-OT.rakumod",
     "NotoFonts-OT::Download": "lib/NotoFonts-OT/Download.rakumod",
+    "NotoFonts-OT::FontPaths": "lib/NotoFonts-OT/FontPaths.rakumod",
     "NotoFonts-OT::Registry": "lib/NotoFonts-OT/Registry.rakumod",
     "NotoFonts-OT::Vars": "lib/NotoFonts-OT/Vars.rakumod"
   },
   "resources": [
+    "fonts/NotoSansMono/NotoSansMono-Regular.otf",
+    "fonts/NotoSansMono/NotoSansMono-Bold.otf",
+    "fonts/NotoSerif/NotoSerif-Regular.otf",
+    "fonts/NotoSerif/NotoSerif-Italic.otf",
+    "fonts/NotoSerif/NotoSerif-Bold.otf",
+    "fonts/NotoSerif/NotoSerif-BoldItalic.otf",
+    "fonts/NotoSans/NotoSans-Regular.otf",
+    "fonts/NotoSans/NotoSans-Italic.otf",
+    "fonts/NotoSans/NotoSans-BoldItalic.otf",
+    "fonts/NotoSans/NotoSans-Bold.otf",
+    "fonts/OFL.txt",
+    "fonts/FONT-LICENSES.rakudoc"
   ],
   "source-url": "https://github.com/tbrowder/NotoFonts-OT.git",
   "tags": [
-    "fonts pdf otf"
+    "fonts pdf otf adobe"
   ],
   "test-depends": [
   ],

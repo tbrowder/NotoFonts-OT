@@ -22,8 +22,11 @@ say $nf.list-font-names;
 for 1..10 -> $n {
     my $font = $nf.get-font: 1;
     isa-ok $font, PDF::Content::FontObj;
+    my $font-path = $nf.get-path: 1;
+    isa-ok $font-path, IO::Path;
 }
 
-say "DEBUG: got valid loaded fonts";
+say "DEBUG: got valid loaded fonts" if $debug;
+say "DEBUG: got valid font paths" if $debug;
 
 done-testing;
