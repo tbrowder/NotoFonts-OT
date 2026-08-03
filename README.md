@@ -84,7 +84,37 @@ Table 2
 Alternative use by subroutine
 -----------------------------
 
-The font or font path can also be obtained with a subroutine if need be. To do that you must only use one child module alone: `NotoFonts-OT::FontPaths`.
+The font or font path can also be obtained with a subroutine if need be. To do that you must only use one child module alone: `NotoFonts-OT::FontPaths`. For example:
+
+    use Test;
+    use PDF::Font::Loader::HarfBuzz;
+    use PDF::Font::Loader :load-font;
+    use PDF::Content;
+    use PDF::Content::FontObj;
+    use PDF::Lite;
+
+    use NotoFonts-OT::FontPaths;
+
+    # Select the Noto font 'NotoSerif-Regular' to be loaded
+    # as a PDF font object to be used to print text on a PDF page.
+    # Use a code reference from Table 1:
+    my $font-obj = get-loaded-font 1;
+    isa-ok $font, PDF::Content::FontObj;
+    # OUTPUT:
+    ok 1 - The object is-a 'PDF::Content::FontObj'
+    1..1
+
+    # You may need to provide a font path:
+    my $font-path = get-font-path 1;
+    isa-ok $font-path, IO::Path;
+    # OUTPUT:
+    ok 1 - The object is-a 'IO::Path'
+    1..1
+
+Package `App::FontSample`
+-------------------------
+
+Use that Raku package to produce font samples in various format.
 
 AUTHOR
 ======
