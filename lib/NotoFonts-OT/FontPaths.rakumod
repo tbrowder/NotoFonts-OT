@@ -158,9 +158,11 @@ sub font-paths(
 }
 
 sub get-font-path(
-    Str:D $code
+    #Str:D $code
+    $code is copy,
     --> IO::Path
 ) is export {
+    $code .= Str;
     my %paths := font-paths;
 
     unless %paths{$code}:exists {
@@ -171,8 +173,12 @@ sub get-font-path(
 }
 
 sub get-loaded-font(
-    Str:D $code
+    #Str:D $code
+    $code is copy,
+    :$debug,
 ) is export {
+    
+    $code .= Str;
     my IO::Path $file = get-font-path($code);
 
     return load-font :$file;

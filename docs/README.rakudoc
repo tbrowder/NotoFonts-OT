@@ -2,25 +2,33 @@
 
 =head1 NAME
 
-B<NotoFonts-OT> - Provides a collection of Google's Noto OpenType fonts for
-use in Raku PDF creation
+B<NotoFonts-OT> - Provides an embedded collection of 10 of Google's Noto OpenType fonts for
+use in Raku PDF creation.
 
-In order to use the fonts, they must be downloaded by the user or 
-by the system administrator to a location defined in environment 
-variable C<NOTO_FONTS_OTF>. In directory C<./sbin> is a bash script 
-to download the 10 fonts that are the equivalent of the original 
-Adobe fonts. Note that the variable must be defined and it
-must point to a valid and usable directory.
+The 10 fonts closely match 10 of the original Adobe Type 1 fonts but in OTF format, and
+thousands of glyphs instead of only 256.
+
+Tables 1 and 2 below list several ways to refer to the desired font
+and get it in one of two forms: a PDF font object or a font path to its
+location.
+
+There also two ways of accessing the fonts: (1) through a class object or (2)
+through an exported subroutine. Both ways are illustrated below.
 
 Note that there are many more fonts available, and more
-weight variations may be added here later. Please file an
+weight variations of the 10 fonts may be added here later. Please file an
 issue if you are interested.
 	
 =head1 SYNOPSIS
 
 =begin code :lang<raku>
 use Test;
+use PDF::Font::Loader::HarfBuzz;
+use PDF::Font::Loader :load-font;
 use PDF::Content;
+use PDF::Content::FontObj;
+use PDF::Lite;
+
 use NotoFonts-OT;
 
 # Use the provided class to create individual font objects
@@ -47,50 +55,54 @@ find a problem.
 
 =head1 DESCRIPTION
 
-The following tables show the font name, weight, and slant
+The following tables show the font family name, weight, and slant
 of the 10 fonts approximating the original Adobe Type 1 fonts.
 The desired font can be selected by using the appropriate
-Code, Code2, or Refence Number as the input to class merhod
+Name, Code, Code2, or Reference Number as the input to class method
 C<get-font> which returns a PDF font object.
 
-Note the codes are not case sensitive.
+One can also get the font path by using class method C<get-path>.
 
-Currently there is no other way to select a font, but
-a more general mmethod will be provided later.
+Note the names and codes are not case sensitive.
 
 =head2 Table 1
 
 =begin table :caption<The Noto Fonts Collection>
-Noto Font Name         | Code | Code2 | Reference No.
------------------------+------+--------------------------
-Noto Serif Regular     | se   | t     | 1
-Noto Serif Bold        | seb  | tb    | 2
-Noto Serif Italic      | sei  | ti    | 3
-Noto Serif Bold Italic | sebi | tbi   | 4
-Noto Sans Regular      | sa   | h     | 5
-Noto Sans Bold         | sab  | hb    | 6
-Noto Sans Italic       | sai  | ho    | 7
-Noto Sans Bold Italic  | sabi | hbo   | 8
-Noto Sans Mono Regular | m    | c     | 9
-Noto Sans Mono Bold    | mb   | cb    | 10
+Noto Font Name       | Code | Code2 | Reference No.
+---------------------+------+-------+--------------
+NotoSerif-Regular    | se   | t     | 1
+NotoSerif-Bold       | seb  | tb    | 2
+NotoSerif-Italic     | sei  | ti    | 3
+NotoSerif-BoldItalic | sebi | tbi   | 4
+NotoSans-Regular     | sa   | h     | 5
+NotoSans-Bold        | sab  | hb    | 6
+NotoSans-Italic      | sai  | ho    | 7
+NotoSans-BoldItalic  | sabi | hbo   | 8
+NotoSansMono-Regular | m    | c     | 9
+NotoSansMono-Bold    | mb   | cb    | 10
 =end table
 
 =head2 Table 2
 
 =begin table :caption<The Equivalent Adobe Type 1 Fonts>
-Adobe Type 1 Name      | Code | Code2 | Reference No.
------------------------+------+--------------------------
-Times                  | se   | t     | 1
-Times Bold             | seb  | tb    | 2
-Times Italic           | sei  | ti    | 3
-Times Bold Italic      | sebi | tbi   | 4
-Helvetica              | sa   | h     | 5
-Helvetica Bold         | sab  | hb    | 6
-Helvetica Oblique      | sai  | ho    | 7
-Helvetica Bold Oblique | sabi | hbo   | 8
-Courier                | m    | c     | 9
-Courier Bold           | mb   | cb    | 10
+Adobe Type 1 Name     | Code | Code2 | Reference No.
+----------------------+------+-------+--------------
+Times                 | se   | t     | 1
+Times-Bold            | seb  | tb    | 2
+Times-Italic          | sei  | ti    | 3
+Times-BoldItalic      | sebi | tbi   | 4
+Helvetica             | sa   | h     | 5
+Helvetica-Bold        | sab  | hb    | 6
+Helvetica-Oblique     | sai  | ho    | 7
+Helvetica-BoldOblique | sabi | hbo   | 8
+Courier               | m    | c     | 9
+Courier-Bold          | mb   | cb    | 10
 =end table
+
+=head2 Alternative use by subroutine
+
+The font or font path can also be obtained with a subroutine if need be.
+To do that you must only use one child module alone: C<NotoFonts-OT::FontPaths>.
 
 =head1 AUTHOR
 
