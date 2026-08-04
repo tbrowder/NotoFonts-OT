@@ -1,6 +1,8 @@
 Revision history for NotoFonts-OT
 
 {{$NEXT}}
+
+0.0.3  2026-08-04T13:08:38-05:00
     - Moved non-font entries out of /resources/fontd directory
 
 0.0.2  2026-08-04T11:11:46-05:00
