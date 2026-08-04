@@ -111,10 +111,17 @@ The font or font path can also be obtained with a subroutine if need be. To do t
     ok 1 - The object is-a 'IO::Path'
     1..1
 
-Package `App::FontSample`
--------------------------
+Font sources
+============
 
-Use that Raku package to produce font samples in various format.
+The `/resouurce` directory contains the embedded fonts along with a description of their original source and a list of their sha256sums for authentication.
+
+In the `/sbin` directory is a Raku script to calculate sha256sums of files. .
+
+Package `App::FontSample`
+=========================
+
+Use that Raku package to produce font samples in various formats.
 
 AUTHOR
 ======

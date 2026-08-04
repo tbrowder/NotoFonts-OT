@@ -6,6 +6,7 @@
   "build-depends": [
   ],
   "depends": [
+    "Digest::SHA256::Native",
     "MacOS::NativeLib",
     "OO::Monitors:ver<1.1.4>",
     "PDF::Content",

@@ -131,9 +131,19 @@ ok 1 - The object is-a 'IO::Path'
 1..1
 =end code
 
-=head2 Package C<App::FontSample>
+=head1 Font sources
 
-Use that Raku package to produce font samples in various format.
+The C</resouurce> directory contains the embedded fonts
+along with a description of their original
+source and a list of their sha256sums for authentication.
+
+In the C</sbin> directory is a Raku script to calculate
+sha256sums of files.
+.
+
+=head1 Package C<App::FontSample>
+
+Use that Raku package to produce font samples in various formats.
 
 =head1 AUTHOR
 

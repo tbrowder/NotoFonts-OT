@@ -1,0 +1,32 @@
+=begin pod
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+The full text is shown in the adjacent file 'OTL.txt'.
+
+The following fonts were downloaded from GitHb at
+=begin code
+https://github.com/notofonts.github.io/fonts/NotoSans/unhinted/otf
+  NotoSans-Regular.otf
+  NotoSans-Bold.otf
+  NotoSans-Italic.otf
+  NotoSans-BoldItalic.otf
+  
+https://github.com/notofonts.github.io/fonts/NotoSansMono/unhinted/otf
+  NotoSansMono-Regular.otf
+  NotoSansMono-Bold.otf
+
+https://github.com/notofonts.github.io/fonts/NotoSerif/unhinted/otf
+  NotoSerif-Regular.otf
+  NotoSerif-Bold.otf
+  NotoSerif-Italic.otf
+  NotoSerif-BoldItalic.otf
+
+=end code
+
+
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+=end pod
+
