@@ -114,9 +114,7 @@ The font or font path can also be obtained with a subroutine if need be. To do t
 Font sources
 ============
 
-The `/resouurces` directory contains the embedded fonts along with a description of their original source and a list of their sha256sums for authentication.
-
-It also contains a file describing the SIL Open Font License (OFL) font licence for the included fonts and a file with a large amount of Frequently Asked Questions (FAQ) about the OFL.
+The `/resouurces/fonts` directory contains the embedded fonts. The `/resouurces/info` directory contains a description of their original source and a list of their sha256sums for authentication. It also contains a file describing the SIL Open Font License (OFL) font licence for the included fonts and a file with a large amount of Frequently Asked Questions (FAQ) about the OFL.
 
 In the `/sbin` directory is a Raku script to calculate sha256sums of files.
 
