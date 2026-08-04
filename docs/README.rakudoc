@@ -133,13 +133,16 @@ ok 1 - The object is-a 'IO::Path'
 
 =head1 Font sources
 
-The C</resouurce> directory contains the embedded fonts
+The C</resouurces> directory contains the embedded fonts
 along with a description of their original
 source and a list of their sha256sums for authentication.
 
+It also contains a file describing the SIL Open Font License (OFL) 
+font licence for the included fonts and a file with a large amount of
+Frequently Asked Questions (FAQ) about the OFL.
+
 In the C</sbin> directory is a Raku script to calculate
 sha256sums of files.
-.
 
 =head1 Package C<App::FontSample>
 
