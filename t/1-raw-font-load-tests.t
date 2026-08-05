@@ -2,7 +2,7 @@ use OO::Monitors;
 
 use Test;
 
-my $debug = 1;
+my $debug = 0;
 
 use MacOS::NativeLib "*";
 use PDF::Font::Loader::HarfBuzz;

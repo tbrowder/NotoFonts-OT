@@ -2,7 +2,7 @@ use OO::Monitors;
 
 use Test;
 
-my $debug = 1;
+my $debug = 0;
 
 use MacOS::NativeLib "*";
 use PDF::Font::Loader::HarfBuzz;
@@ -31,7 +31,6 @@ for @codes.kv -> $i, $code {
 
 # check ALL fonts load;
 for $nf.list-font-codes.sort -> $code {
-    #next if $code ~~ / 
     my $f = $nf.get-font: $code;
     isa-ok $f, PDF::Content::FontObj;
     say $f.font-name if $debug;

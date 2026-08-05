@@ -21,7 +21,7 @@ use PDF::Font::Loader :load-font;
 
 # These values are safe to precompile because they are resource names,
 # not absolute installation paths.
-my constant %FONT-RESOURCE = (
+my constant %FONT-RESOURCES = %(
     t   => 'fonts/NotoSerif/NotoSerif-Regular.otf',
     tb  => 'fonts/NotoSerif/NotoSerif-Bold.otf',
     ti  => 'fonts/NotoSerif/NotoSerif-Italic.otf',
@@ -37,7 +37,7 @@ my constant %FONT-RESOURCE = (
 );
 
 # Every accepted code or name maps to one primary code.
-my constant %FONT-ALIAS = (
+my constant %FONT-ALIASES = %(
     # Primary PostScript-style codes
     t   => 't',
     tb  => 'tb',
@@ -115,13 +115,18 @@ my constant %FONT-ALIAS = (
     NotoSansMono-Bold    => 'cb',
 );
 
+my IO::Path $ofl           = %?RESOURCES<text/OFL.txt>.IO;
+my IO::Path $faq           = %?RESOURCES<text/OFL-FAQ.txt>.IO;
+my IO::Path $font-licenses = %?RESOURCES<text/FONT-LICENSES.rakudoc>.IO;
+my IO::Path $sums          = %?RESOURCES<text/SHA256SUMS.txt>.IO;
+
 sub build-font-paths(
     --> Hash
 ) {
     my %paths;
 
-    for %FONT-ALIAS.kv -> $alias, $primary-code {
-        my $resource-name = %FONT-RESOURCE{$primary-code};
+    for %FONT-ALIASES.kv -> $alias, $primary-code {
+        my $resource-name = %FONT-RESOURCES{$primary-code};
 
         unless $resource-name.defined {
             die "No resource is defined for primary font code "
@@ -158,10 +163,10 @@ sub font-paths(
 }
 
 sub get-font-path(
-    #Str:D $code
     $code is copy,
     --> IO::Path
 ) is export {
+
     $code .= Str;
     my %paths := font-paths;
 
@@ -173,7 +178,6 @@ sub get-font-path(
 }
 
 sub get-loaded-font(
-    #Str:D $code
     $code is copy,
     :$debug,
 ) is export {
@@ -188,9 +192,10 @@ sub list-font-codes(
     Bool :$debug = False
     --> List
 ) is export {
+
     my @codes;
 
-    for %FONT-ALIAS.keys.sort -> $code {
+    for %FONT-ALIASES.keys.sort -> $code {
         @codes.push: $code;
         say $code if $debug;
     }
@@ -202,9 +207,10 @@ sub list-font-names(
     Bool :$debug = False
     --> List
 ) is export {
+
     my @names;
 
-    for %FONT-RESOURCE.values.sort -> $resource-name {
+    for %FONT-RESOURCES.values.sort -> $resource-name {
         my $name = $resource-name.IO.basename;
         $name ~~ s/\.otf$//;
 
