@@ -1,6 +1,3 @@
-use OO::Monitors;
-unit monitor NotoFonts-OT;
-
 use MacOS::NativeLib "*";
 use PDF::Font::Loader::HarfBuzz;
 use PDF::Font::Loader :load-font;
@@ -15,36 +12,16 @@ use NotoFonts-OT::Registry;
 # warning: the Subs module is NOT usable with this module
 use NotoFonts-OT::Vars;
 
+=begin comment
 has IO::Path $.registry-dir;
 has %!fonts;
 has %!docs;
-
 has $!debug;
 
-method get-ofl-path(
-    --> IO::Path    
-) {
-    return %?RESOURCES<text/OFL.txt>.IO;
-}
-
-method get-faq-path(
-    --> IO::Path    
-) {
-    return %?RESOURCES<text/OFL-FAQ.txt>.IO;
-}
-
-method get-sha256-path(
-    --> IO::Path    
-) {
-    return %?RESOURCES<text/SHA256SUMS.txt>.IO;
-}
-
-method get-font-licenses-path(
-    --> IO::Path    
-) {
-    return %?RESOURCES<text/FONT-LICENSES.rakudoc>.IO;
-}
-
+method get-ofl-path( --> IO::Path    ) { return %?RESOURCES<text/OFL.txt>.IO; }
+method get-faq-path( --> IO::Path    ) { return %?RESOURCES<text/OFL-FAQ.txt>.IO; }
+method get-sha256-path( --> IO::Path    ) { return %?RESOURCES<text/SHA256SUMS.txt>.IO; }
+method get-font-licenses-path( --> IO::Path    ) { return %?RESOURCES<text/FONT-LICENSES.rakudoc>.IO; }
 method list-font-names(
     :$debug,
 ) {
@@ -112,6 +89,7 @@ submethod TWEAK {
     %!fonts = get-font-paths-hash(:$!debug);
     %!docs  = get-docs-hash(:$!debug);
 }
+=end comment
 
 sub get-docs-hash(:$debug --> Hash) {
     my $faq          = %?RESOURCES<text/OFL-FAQ.txt>.IO;
