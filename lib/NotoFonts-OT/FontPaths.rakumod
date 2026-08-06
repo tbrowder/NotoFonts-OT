@@ -124,7 +124,7 @@ my IO::Path $sums          = %?RESOURCES<text/SHA256SUMS.txt>.IO;
 
 sub build-font-paths(
     --> Hash
-) {
+) is export {
     my %paths;
 
     for %FONT-ALIASES.kv -> $alias, $primary-code {
@@ -157,7 +157,7 @@ sub build-font-paths(
 
 sub font-paths(
     --> Hash
-) {
+) is export {
     # Constructed only on first use and retained thereafter.
     state %font-paths = build-font-paths;
 
@@ -223,6 +223,7 @@ sub list-font-names(
     return @names.List;
 }
 
+=begin comment
 sub get-font-paths-hash(
     Bool :$debug = False
     --> Hash
@@ -238,3 +239,4 @@ sub get-font-paths-hash(
     # Do not allow callers to alter the module's cached hash.
     return %paths.clone;
 }
+=end comment

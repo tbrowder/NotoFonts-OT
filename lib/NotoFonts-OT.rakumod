@@ -91,7 +91,7 @@ submethod TWEAK {
 }
 =end comment
 
-sub get-docs-hash(:$debug --> Hash) {
+sub get-docs-hash(:$debug --> Hash) is export {
     my $faq          = %?RESOURCES<text/OFL-FAQ.txt>.IO;
     my $font-license = %?RESOURCES<text/OFL.txt>.IO;
     my $doc          = %?RESOURCES<text/FONT-LICENSES.rakudoc>.IO;
@@ -106,7 +106,7 @@ sub get-docs-hash(:$debug --> Hash) {
     return %docs;
 }
 
-sub get-font-paths-hash(:$debug --> Hash) {
+sub get-font-paths-hash(:$debug --> Hash) is export {
     # from the Google Noto fonts collection
     # only OpenType fonts wanted
 
@@ -237,4 +237,3 @@ sub get-font-paths-hash(:$debug --> Hash) {
     # the final hash:
     return %fonts; # hash of font file paths
 }
-
