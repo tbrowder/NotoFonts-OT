@@ -1,5 +1,3 @@
-use OO::Monitors;
-
 use Test;
 
 my $debug = 0;
@@ -13,16 +11,13 @@ use PDF::Lite;
 
 # testing the file path getter:
 use NotoFonts-OT;
-my $nf = NotoFonts-OT.new;
-
-isa-ok $nf, NotoFonts-OT;
-#my @clist = $nf.list-font-codes.words;
-#my @nlist = $nf.list-font-names.words;
+use NotoFonts-OT::FontPaths;
 
 for 1..10 -> $n {
-    my $font = $nf.get-font: $n;
+    my $font = get-loaded-font $n;
     isa-ok $font, PDF::Content::FontObj;
-    my $font-path = $nf.get-path: $n;
+
+    my $font-path = get-font-path $n;
     isa-ok $font-path, IO::Path;
 }
 
