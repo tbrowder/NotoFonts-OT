@@ -40,8 +40,9 @@
     "fonts/NotoSans/NotoSans-BoldItalic.otf",
     "fonts/NotoSans/NotoSans-Bold.otf",
     "text/OFL.txt",
-    "text/OFL.txt",
-    "text/FONT-LICENSES.rakudoc"
+    "text/OFL-FAQ.txt",
+    "text/FONT-LICENSES.rakudoc",
+    "text/SHA256SUMS.txt"
   ],
   "source-url": "https://github.com/tbrowder/NotoFonts-OT.git",
   "tags": [

@@ -115,10 +115,12 @@ my constant %FONT-ALIASES = %(
     NotoSansMono-Bold    => 'cb',
 );
 
+=begin comment
 my IO::Path $ofl           = %?RESOURCES<text/OFL.txt>.IO;
 my IO::Path $faq           = %?RESOURCES<text/OFL-FAQ.txt>.IO;
 my IO::Path $font-licenses = %?RESOURCES<text/FONT-LICENSES.rakudoc>.IO;
 my IO::Path $sums          = %?RESOURCES<text/SHA256SUMS.txt>.IO;
+=end comment
 
 sub build-font-paths(
     --> Hash

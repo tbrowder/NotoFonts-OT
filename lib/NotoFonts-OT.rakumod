@@ -1,5 +1,4 @@
 use OO::Monitors;
-
 unit monitor NotoFonts-OT;
 
 use MacOS::NativeLib "*";
@@ -18,7 +17,33 @@ use NotoFonts-OT::Vars;
 
 has IO::Path $.registry-dir;
 has %!fonts;
+has %!docs;
+
 has $!debug;
+
+method get-ofl-path(
+    --> IO::Path    
+) {
+    return %?RESOURCES<text/OFL.txt>.IO;
+}
+
+method get-faq-path(
+    --> IO::Path    
+) {
+    return %?RESOURCES<text/OFL-FAQ.txt>.IO;
+}
+
+method get-sha256-path(
+    --> IO::Path    
+) {
+    return %?RESOURCES<text/SHA256SUMS.txt>.IO;
+}
+
+method get-font-licenses-path(
+    --> IO::Path    
+) {
+    return %?RESOURCES<text/FONT-LICENSES.rakudoc>.IO;
+}
 
 method list-font-names(
     :$debug,
@@ -84,19 +109,23 @@ method get-font(
 }
 
 submethod TWEAK {
-    =begin comment
-    my $env-name = "NOTO_FONTS_OTF";
-
-    say "Environment variable $env-name is not defined"
-        unless %*ENV{$env-name}:exists;
-
-    say "Environment variable $env-name is empty"
-        unless %*ENV{$env-name}:exists;
-
-    $!registry-dir = %*ENV{$env-name}.IO;
-    %!fonts = get-font-file-paths-hash(:$!debug);
-    =end comment
     %!fonts = get-font-paths-hash(:$!debug);
+    %!docs  = get-docs-hash(:$!debug);
+}
+
+sub get-docs-hash(:$debug --> Hash) {
+    my $faq          = %?RESOURCES<text/OFL-FAQ.txt>.IO;
+    my $font-license = %?RESOURCES<text/OFL.txt>.IO;
+    my $doc          = %?RESOURCES<text/FONT-LICENSES.rakudoc>.IO;
+    my $sha256sums   = %?RESOURCES<text/SHA256SUMS.txt>.IO;
+
+    my %docs;
+    %docs<faq>     = $faq;
+    %docs<license> = $font-license;
+    %docs<doc>     = $doc;
+    %docs<sha256>  = $sha256sums;
+
+    return %docs;
 }
 
 sub get-font-paths-hash(:$debug --> Hash) {
