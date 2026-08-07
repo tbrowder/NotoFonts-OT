@@ -3,9 +3,12 @@ Revision history for NotoFonts-OT
 {{$NEXT}}
     - Deleted the class
     - Upped the API to 2
+    - Added a PDF creation test
+    - Cleaned up old code
 
 0.0.3  2026-08-04T13:08:38-05:00
-    - Moved non-font entries out of /resources/fontd directory
+    - Moved non-font entries out of /resources/fonts directory
+        and into the /resources/text directory
 
 0.0.2  2026-08-04T11:11:46-05:00
     - moved old code into /dev
