@@ -8,8 +8,12 @@ use PDF::Font::Loader :load-font;
 use NotoFonts-OT;
 use NotoFonts-OT::FontPaths;
 
+my $debug = 1;
+
 my $file = get-font-path 1;
 my $font = PDF::Font::Loader.load-font: :$file;
+is $font.font-name, "NotoSerif-Regular", "font is 'NotoSerif-Regular'";
+
 my $font-size = 12;
 my $sf = $font-size/1000.0;
 say "font scale factor (font-size / 1000): ", $sf;
@@ -28,7 +32,10 @@ say "content-height: ", $y;
 say "font height (leading): ", $h;
 
 my $pdf = PDF::Lite.new;
+isa-ok $pdf, PDF::Lite, "PDF::Lite";
+
 my $page = $pdf.add-page;
+isa-ok $pdf, PDF::Lite, "PDF::Lite";
 
 my @bbox;
 $page.text: {
@@ -39,8 +46,6 @@ say @bbox.gist;
 say "stringwidth (scaled): ", $sw;
 say "stringwidth (unscaled): ", $swu;
 say "stringwidth (unscaled * sf): ", $swu * $sf;
-
-is 1, 1;
 
 $pdf.save-as: "tmp.pdf";
 say "See pdf file: 'tmp.pdf'";
