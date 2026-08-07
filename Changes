@@ -1,6 +1,8 @@
 Revision history for NotoFonts-OT
 
 {{$NEXT}}
+
+0.1.0  2026-08-07T15:10:37-05:00
     - Deleted the class
     - Upped the API to 2
     - Added a PDF creation test
