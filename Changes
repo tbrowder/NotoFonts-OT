@@ -5,6 +5,7 @@ Revision history for NotoFonts-OT
     - Upped the API to 2
     - Added a PDF creation test
     - Cleaned up old code
+    - Updated the docs
 
 0.0.3  2026-08-04T13:08:38-05:00
     - Moved non-font entries out of /resources/fonts directory
