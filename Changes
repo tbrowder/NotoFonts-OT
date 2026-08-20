@@ -1,6 +1,13 @@
 Revision history for NotoFonts-OT
 
 {{$NEXT}}
+    - Corrected the last Change entry which incorrectly used Pod formatting.
+        The corrected entry gollows:
+
+    - Corrected docs to indicate the 'NotoFonts-OT::FontPaths'
+        module is still required (and the 'NotoFonts-OT' is
+        a no-op). The next change will move all the user
+        code to the parent module.
 
 0.2.0  2026-08-20T15:08:04-05:00
     - Corrected docs to indicate the C<NotoFonts-OT::FontPaths>
