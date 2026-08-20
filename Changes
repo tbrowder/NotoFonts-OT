@@ -1,6 +1,8 @@
 Revision history for NotoFonts-OT
 
 {{$NEXT}}
+
+0.2.1  2026-08-20T16:01:42-05:00
     - Corrected the last Change entry which incorrectly used Pod formatting.
         The corrected entry gollows:
 
