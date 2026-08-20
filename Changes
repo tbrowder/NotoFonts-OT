@@ -1,6 +1,10 @@
 Revision history for NotoFonts-OT
 
 {{$NEXT}}
+    - Corrected docs to indicate the C<NotoFonts-OT::FontPaths>
+        module is still required (and the C<NotoFonts-OT> is
+        a no-op). The next change will move all the user
+        code to the parent module.
 
 0.1.0  2026-08-07T15:10:37-05:00
     - Deleted the class

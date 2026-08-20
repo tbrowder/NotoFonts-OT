@@ -28,6 +28,7 @@ use PDF::Content::FontObj;
 use PDF::Lite;
 
 use NotoFonts-OT;
+use NotoFonts-OT::FontPaths; # This will not be needed after the next API change;
 
 # Use the provided subroutines to create individual font objects
 # of the desired font face:
