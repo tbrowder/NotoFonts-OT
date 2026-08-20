@@ -1,6 +1,8 @@
 Revision history for NotoFonts-OT
 
 {{$NEXT}}
+
+0.2.0  2026-08-20T15:08:04-05:00
     - Corrected docs to indicate the C<NotoFonts-OT::FontPaths>
         module is still required (and the C<NotoFonts-OT> is
         a no-op). The next change will move all the user
