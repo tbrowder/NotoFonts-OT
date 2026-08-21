@@ -9,7 +9,7 @@ use FontConfig;
 use NotoFonts-OT::Download;
 use NotoFonts-OT::Registry;
 use NotoFonts-OT::Vars;
-#use NotoFonts-OT::FontPaths;
+use NotoFonts-OT::FontPaths;
 
 # Initialization
 
@@ -58,6 +58,7 @@ sub list-font-names(
 }
 =end comment
 
+=begin comment
 sub list-font-codes(
     %fonts,
     :$debug,
@@ -76,6 +77,7 @@ sub list-font-codes(
     say() if $debug;
     return @codes;
 }
+=end comment
 
 sub get-path(
     $code,
