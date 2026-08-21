@@ -187,7 +187,8 @@ sub get-loaded-font(
     $code .= Str;
     my IO::Path $file = get-font-path($code);
 
-    return load-font :$file;
+    my $font = load-font :$file;
+    return $font;
 }
 
 sub list-font-codes(

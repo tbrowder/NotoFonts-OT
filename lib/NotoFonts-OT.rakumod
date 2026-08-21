@@ -23,6 +23,7 @@ sub initialize(--> Nil) {
 
     # Locate resources and populate %font-paths here or in lower modules
     %fonts = get-font-paths-hash;
+    $initialized = True;
 }
 
 =begin comment
