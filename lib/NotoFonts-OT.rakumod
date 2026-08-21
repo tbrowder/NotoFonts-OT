@@ -8,75 +8,97 @@ use FontConfig;
 
 use NotoFonts-OT::Download;
 use NotoFonts-OT::Registry;
-
-# warning: the Subs module is NOT usable with this module
 use NotoFonts-OT::Vars;
+#use NotoFonts-OT::FontPaths;
+
+# Initialization
+
+my %fonts;
+my %loaded-fonts;
+my %font-paths;
+my Bool $initialized = False;
+
+sub initialize(--> Nil) {
+    return if $initialized;
+
+    # Locate resources and populate %font-paths here or in lower modules
+    %fonts = get-font-paths-hash;
+}
 
 =begin comment
 has IO::Path $.registry-dir;
 has %!fonts;
 has %!docs;
 has $!debug;
+=end comment
 
-method get-ofl-path( --> IO::Path    ) { return %?RESOURCES<text/OFL.txt>.IO; }
-method get-faq-path( --> IO::Path    ) { return %?RESOURCES<text/OFL-FAQ.txt>.IO; }
-method get-sha256-path( --> IO::Path    ) { return %?RESOURCES<text/SHA256SUMS.txt>.IO; }
-method get-font-licenses-path( --> IO::Path    ) { return %?RESOURCES<text/FONT-LICENSES.rakudoc>.IO; }
-method list-font-names(
+sub get-ofl-path( --> IO::Path    ) { return %?RESOURCES<text/OFL.txt>.IO; }
+sub get-faq-path( --> IO::Path    ) { return %?RESOURCES<text/OFL-FAQ.txt>.IO; }
+sub get-sha256-path( --> IO::Path    ) { return %?RESOURCES<text/SHA256SUMS.txt>.IO; }
+sub get-font-licenses-path( --> IO::Path    ) { return %?RESOURCES<text/FONT-LICENSES.rakudoc>.IO; }
+
+=begin comment
+sub list-font-names(
+    %fonts,
     :$debug,
 ) {
     my %names;
-    for %!fonts.values.sort -> $name is copy {
-        next if $name ~~ /raku | OFL /;
-        next unless $name ~~ /\S/;
-        #$name .= basename;
-        
-        next if %names{$name}:exists;
-        %names{$name} = 1;
-        say $name if $debug;
+    for %fonts.values.sort -> $name is copy {
+	next if $name ~~ /raku | OFL /;
+	next unless $name ~~ /\S/;
+	#$name .= basename;
+	
+	next if %names{$name}:exists;
+	%names{$name} = 1;
+	say $name if $debug;
     }
     for %names.keys.sort -> $name {
-        say $name if 1 or $debug;
+	say $name if 1 or $debug;
     }
 }
+=end comment
 
-method list-font-codes(
+sub list-font-codes(
+    %fonts,
     :$debug,
     --> List
 ) {
     my @codes;
-    for %!fonts.keys.sort -> $code {
-        next if $code ~~ /raku | OFL /;
-        next unless $code ~~ /\S/;
-        #$name .= basename;
-        
-        say $code if $debug;
-        @codes.push: $code;
+    #for %!fonts.keys.sort -> $code {
+    for %fonts.keys.sort -> $code {
+	next if $code ~~ /raku | OFL /;
+	next unless $code ~~ /\S/;
+	#$name .= basename;
+	
+	say $code if $debug;
+	@codes.push: $code;
     }
     say() if $debug;
     return @codes;
 }
 
-method get-path(
-    $code	
+sub get-path(
+    $code,
+    :%fonts,
     --> IO::Path
 ) {
     # given a "code", return a font path
-    my $font-path = %!fonts{$code} // 0;
+    my $font-path = %fonts{$code} // 0;
     if $font-path.IO.f {
-        return $font-path;
+	return $font-path;
     }
     else {
-        say "ERROR: Unknown font code '$code'";
+	say "ERROR: Unknown font code '$code'";
     }
 }
 
-method get-font(
+sub get-font(
     $code,
     --> PDF::Content::FontObj
 ) {
     # given a "code", return a FontObj
-    my $font-path = %!fonts{$code} // 0;
+    #my $font-path = %!fonts{$code} // 0;
+    my $font-path = %fonts{$code} // 0;
     if $font-path.IO.f {
         return load-font(:file($font-path));
     }
@@ -84,6 +106,8 @@ method get-font(
         say "ERROR: Unknown font name or code '$code'";
     }
 }
+
+=begin comment
 
 submethod TWEAK {
     %!fonts = get-font-paths-hash(:$!debug);
