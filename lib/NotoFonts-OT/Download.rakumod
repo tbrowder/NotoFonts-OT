@@ -9,21 +9,21 @@ my constant $BASE-URL =
 
 my NotoFonts-OT::Registry $REGISTRY = NotoFonts-OT::Registry.new;
 
-sub font-url(Str:D $family, Str:D $face = 'regular' --> Str:D) is export {
+our sub font-url(Str:D $family, Str:D $face = 'regular' --> Str:D) is export {
     my $directory = $REGISTRY.family-directory($family);
     my $filename  = $REGISTRY.filename($family, $face);
 
     return "$BASE-URL/$directory/unhinted/otf/$filename";
 }
 
-sub curl-program(--> Str:D) {
+our sub curl-program(--> Str:D) {
     my $proc = run 'curl', '--version', :out, :err;
     return 'curl' if $proc.exitcode == 0;
 
     die "The 'curl' executable is required to download Noto fonts.";
 }
 
-sub download-font(
+our sub download-font(
     Str:D $family,
     Str:D $face = 'regular',
     IO::Path:D :$directory = 'fonts'.IO,
@@ -74,7 +74,7 @@ sub download-font(
     return $output;
 }
 
-sub download-default-fonts(
+our sub download-default-fonts(
     IO::Path:D :$directory = 'fonts'.IO,
     Bool:D :$force = False,
     Bool:D :$verbose = True,

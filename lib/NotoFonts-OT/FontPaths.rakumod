@@ -122,7 +122,7 @@ my IO::Path $font-licenses = %?RESOURCES<text/FONT-LICENSES.rakudoc>.IO;
 my IO::Path $sums          = %?RESOURCES<text/SHA256SUMS.txt>.IO;
 =end comment
 
-sub build-font-paths(
+our sub build-font-paths(
     --> Hash
 ) is export {
     my %paths;
@@ -155,7 +155,7 @@ sub build-font-paths(
     return %paths;
 }
 
-sub font-paths(
+our sub font-paths(
     --> Hash
 ) is export {
     # Constructed only on first use and retained thereafter.
@@ -164,7 +164,7 @@ sub font-paths(
     return %font-paths;
 }
 
-sub get-font-path(
+our sub get-font-path(
     $code is copy,
     --> IO::Path
 ) is export {
@@ -179,7 +179,7 @@ sub get-font-path(
     return %paths{$code};
 }
 
-sub get-loaded-font(
+our sub get-loaded-font(
     $code is copy,
     :$debug,
 ) is export {
@@ -191,7 +191,7 @@ sub get-loaded-font(
     return $font;
 }
 
-sub list-font-codes(
+our sub list-font-codes(
     Bool :$debug = False
     --> List
 ) is export {
@@ -206,7 +206,7 @@ sub list-font-codes(
     return @codes.List;
 }
 
-sub list-font-names(
+our sub list-font-names(
     Bool :$debug = False
     --> List
 ) is export {
