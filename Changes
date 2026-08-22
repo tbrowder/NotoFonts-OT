@@ -5,7 +5,10 @@ Revision history for NotoFonts-OT
     - Upped the API to 2
     - Added a PDF creation test
     - Cleaned up old code
+    - Merged all external facing code into the parent file
     - Updated the docs
+    - Fixed a major problem with using code not getting a
+        child moddule's data that should have been exported
 
 0.0.3  2026-08-04T13:08:38-05:00
     - Moved non-font entries out of /resources/fonts directory

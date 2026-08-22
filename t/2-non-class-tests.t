@@ -10,7 +10,7 @@ use PDF::Content::FontObj;
 use PDF::Lite;
 
 # tests independent, non-class subs
-use NotoFonts-OT::FontPaths;
+use NotoFonts-OT;
 
 for 1..10 -> $n is copy {
     my $font = get-loaded-font $n;

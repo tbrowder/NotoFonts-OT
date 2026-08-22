@@ -46,7 +46,7 @@ DESCRIPTION
 
 The following tables show the font family name, weight, and slant of the 10 fonts approximating the original Adobe Type 1 fonts. The desired font can be selected by using the appropriate Name, Code, Code2, or Reference Number as the input to subroutine `get-loaded-font` which returns a PDF font object.
 
-One can also get the font path by using subroutine `get-font-path`.
+One can also get the font path by using subroutine `get-font-path` with the same arguments..
 
 Table 1
 -------
@@ -78,6 +78,8 @@ Font sources
 ============
 
 The `/resouurces/fonts` directory contains the embedded fonts. The `/resouurces/text` directory contains a description of their original source and a list of their sha256sums for authentication. It also contains a file describing the SIL Open Font License (OFL) for the included fonts and a file with a large amount of Frequently Asked Questions (FAQ) about the OFL.
+
+In the `/bin` directory is a script to be used to list the 10 embedded font names and their `code` numbers.
 
 In the `/sbin` directory is a Raku script to calculate sha256sums of files.
 

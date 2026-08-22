@@ -25,7 +25,6 @@
   "provides": {
     "NotoFonts-OT": "lib/NotoFonts-OT.rakumod",
     "NotoFonts-OT::Download": "lib/NotoFonts-OT/Download.rakumod",
-    "NotoFonts-OT::FontPaths": "lib/NotoFonts-OT/FontPaths.rakumod",
     "NotoFonts-OT::Registry": "lib/NotoFonts-OT/Registry.rakumod",
     "NotoFonts-OT::Vars": "lib/NotoFonts-OT/Vars.rakumod"
   },

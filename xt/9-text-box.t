@@ -6,7 +6,6 @@ use PDF::Content::Text::Box;
 use PDF::Font::Loader :load-font;
 
 use NotoFonts-OT;
-use NotoFonts-OT::FontPaths;
 
 my $debug = 1;
 
@@ -51,22 +50,3 @@ $pdf.save-as: "tmp.pdf";
 say "See pdf file: 'tmp.pdf'";
 
 done-testing;
-
-=finish
-
-my $b = PDF::Content::Text::Box.new(;
-
-my $ff = FontFactory.new;
-my $df = $ff.get-font: 1, 12;
-
-is $df.size, 12;
-
-my $text = "Some text";
-my $o = $df.string: $text;
-is $o.text, $text;
-
-# TODO use a text box to check output from FontFactory
-#      a simple bbox should work
-
-done-testing;
-

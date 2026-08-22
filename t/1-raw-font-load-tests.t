@@ -11,7 +11,6 @@ use PDF::Lite;
 
 # testing the file path getter:
 use NotoFonts-OT;
-use NotoFonts-OT::FontPaths;
 
 for 1..10 -> $n {
     my $font = get-loaded-font $n;
