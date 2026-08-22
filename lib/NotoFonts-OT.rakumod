@@ -23,7 +23,7 @@ sub initialize(--> Nil) {
 
     # Locate resources and populate %font-paths here or in lower modules
     %fonts = get-font-paths-hash;
-    %fonts = get-font-paths-hash;
+
     $initialized = True;
 }
 
@@ -475,3 +475,17 @@ our sub list-font-names(
 
     return @names.List;
 }
+
+sub list-font-names-number(
+    --> List
+) is export {
+
+    # get a list of the font names and number
+    # the hash is name -> alias
+
+    my %fonts = get-font-paths-hash;
+    for %fonts.kv -> $k, $v {
+        say "k,v: |$k|, |$v||";
+    }
+}
+
