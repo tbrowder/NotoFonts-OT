@@ -21,7 +21,7 @@ use PDF::Font::Loader :load-font;
 
 # These values are safe to precompile because they are resource names,
 # not absolute installation paths.
-my constant %FONT-RESOURCES = %(
+our constant %FONT-RESOURCES is export = %(
     t   => 'fonts/NotoSerif/NotoSerif-Regular.otf',
     tb  => 'fonts/NotoSerif/NotoSerif-Bold.otf',
     ti  => 'fonts/NotoSerif/NotoSerif-Italic.otf',
@@ -37,7 +37,7 @@ my constant %FONT-RESOURCES = %(
 );
 
 # Every accepted code or name maps to one primary code.
-my constant %FONT-ALIASES = %(
+our constant %FONT-ALIASES is export = %(
     # Primary PostScript-style codes
     t   => 't',
     tb  => 'tb',
