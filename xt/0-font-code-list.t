@@ -46,5 +46,11 @@ for %fonts.kv -> $k, $v {
 
 say $_ for @nums;
 
+for 1..10 -> $num {
+    my $fnam = %pairs{$num};
+    my $n = 2; # space between columns 
+    printf "%2d" ~ (" " x $n) ~ "%-10s\n", $num, $fnam;
+}
+
 done-testing;
 
