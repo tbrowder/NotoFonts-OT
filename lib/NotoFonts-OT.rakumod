@@ -374,7 +374,7 @@ my IO::Path $font-licenses = %?RESOURCES<text/FONT-LICENSES.rakudoc>.IO;
 my IO::Path $sums          = %?RESOURCES<text/SHA256SUMS.txt>.IO;
 =end comment
 
-our sub build-font-paths(
+ sub build-font-paths(
     --> Hash
 ) is export {
     my %paths;
@@ -407,7 +407,7 @@ our sub build-font-paths(
     return %paths;
 }
 
-our sub font-paths(
+sub font-paths(
     --> Hash
 ) is export {
     # Constructed only on first use and retained thereafter.
@@ -416,7 +416,7 @@ our sub font-paths(
     return %font-paths;
 }
 
-our sub get-font-path(
+sub get-font-path(
     $code is copy,
     --> IO::Path
 ) is export {
@@ -431,7 +431,7 @@ our sub get-font-path(
     return %paths{$code};
 }
 
-our sub get-loaded-font(
+sub get-loaded-font(
     $code is copy,
     :$debug,
 ) is export {
@@ -443,7 +443,7 @@ our sub get-loaded-font(
     return $font;
 }
 
-our sub list-font-codes(
+sub list-font-codes(
     Bool :$debug = False
     --> List
 ) is export {
@@ -458,7 +458,7 @@ our sub list-font-codes(
     return @codes.List;
 }
 
-our sub list-font-names(
+sub list-font-names(
     Bool :$debug = False
     --> List
 ) is export {
@@ -477,6 +477,7 @@ our sub list-font-names(
 }
 
 sub list-font-names-number(
+    :$debug,
     --> List
 ) is export {
 
@@ -484,8 +485,40 @@ sub list-font-names-number(
     # the hash is name -> alias
 
     my %fonts = get-font-paths-hash;
+
+    my @nums;
+    my %pairs; # number | font name
+
     for %fonts.kv -> $k, $v {
-        say "k,v: |$k|, |$v||";
+
+        # the key is a code
+        # the value is a path
+
+        # we want the keys that are the a digits 1..10
+        next unless $k.Int;
+   
+        my $code = $k.Int;
+        say "k,v: |$code|, |$v||" if $debug;
+
+        # we want the value as a font name
+        my $fnam = $v.basename;
+        $fnam ~~ s/:i '.otf' $//;
+        say "k,v: |$code|, |$fnam|" if $debug;
+
+        %pairs{$code} = $fnam;
+        @nums.push: $code;
+    }
+
+    @nums .= sort({$^a <=> $^b});
+
+    if $debug { 
+        say $_ for @nums 
+    }
+
+    for 1..10 -> $num {
+        my $fnam = %pairs{$num};
+        my $n = 2; # space between columns 
+        printf "%2d" ~ (" " x $n) ~ "%-10s\n", $num, $fnam;
     }
 }
 
