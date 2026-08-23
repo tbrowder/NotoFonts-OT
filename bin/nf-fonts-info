@@ -4,7 +4,6 @@ use lib "lib";
 use NotoFonts-OT;
 
 my %docs  = get-docs-hash;
-#my %fonts = get-fonts-hash;
 
 say "Information for NotoFont users.";
 say "Select a number to view that topic.";
@@ -14,5 +13,5 @@ print q:to/HERE/;
   3  #{get-sha256-path}
   4  #{get-font-licenses-path}
 HERE
-my prompt = "
+#my prompt = "
 

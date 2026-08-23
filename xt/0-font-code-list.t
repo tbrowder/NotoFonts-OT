@@ -4,6 +4,8 @@ use Test;
 
 use NotoFonts-OT;
 
+my $debug = 0;
+
 =begin comment
 sub list-font-names-number(
     --> List
@@ -31,12 +33,12 @@ for %fonts.kv -> $k, $v {
     next unless $k.Int;
    
     my $code = $k.Int;
-    #say "k,v: |$code|, |$v||";
+    say "k,v: |$code|, |$v||" if $debug;
 
     # we want the value as a font name
     my $fnam = $v.basename;
     $fnam ~~ s/:i '.otf' $//;
-    say "k,v: |$code|, |$fnam|";
+    say "k,v: |$code|, |$fnam|" if $debug;
 
     %pairs{$code} = $fnam;
     @nums.push: $code;
@@ -44,7 +46,7 @@ for %fonts.kv -> $k, $v {
 
 @nums .= sort({$^a <=> $^b});
 
-say $_ for @nums;
+if $debug { say $_ for @nums }
 
 for 1..10 -> $num {
     my $fnam = %pairs{$num};
