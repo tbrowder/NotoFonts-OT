@@ -3,8 +3,6 @@
 use lib "lib";
 use NotoFonts-OT;
 
-#my %docs  = get-docs-hash;
-#my %fonts = get-fonts-hash;
-
 say "List of included Noto fonts and their number codes:";
+list-font-names-number;
 

@@ -6,21 +6,6 @@ use NotoFonts-OT;
 
 my $debug = 0;
 
-=begin comment
-sub list-font-names-number(
-    --> List
-) is export {
-
-    # get a list of the font names and number
-    # the hash is name -> alias
-
-    my %fonts = get-font-paths-hash;
-    for %fonts.kv -> $k, $v {
-        say "k,v: |$k|, |$v||";
-    }
-}
-=end comment
-
 my @nums;
 my %pairs; # number | font name
 
