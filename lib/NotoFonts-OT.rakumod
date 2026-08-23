@@ -515,6 +515,8 @@ sub list-font-names-number(
         say $_ for @nums 
     }
 
+    say();
+    say "List of included Noto fonts and their number codes:";
     for 1..10 -> $num {
         my $fnam = %pairs{$num};
         my $n = 2; # space between columns 

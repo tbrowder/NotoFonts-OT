@@ -1,8 +1,9 @@
 #!/usr/bin/env raku
 
+# file: /bin/nf-fonts-list
+
 use lib "lib";
 use NotoFonts-OT;
 
-say "List of included Noto fonts and their number codes:";
 list-font-names-number;
 
