@@ -34,7 +34,7 @@ use NotoFonts-OT;
 
 # Select the Noto font 'NotoSerif-Regular' to be loaded
 # as a PDF font object to be used to print text on a PDF page.
-# Use a code reference from Table 1:
+# Use a reference number from Table 1:
 my $font = get-loaded-font 1;
 isa-ok $font, PDF::Content::FontObj;
 # OUTPUT:
@@ -101,8 +101,14 @@ It also contains a file describing the SIL Open Font License (OFL)
 for the included fonts and a file with a large amount of
 Frequently Asked Questions (FAQ) about the OFL.
 
-In the C</bin> directory is a script to be used to
-list the 10 embedded font names and their C<code> 
+In the C</bin> directory are two Raku scripts: one is a script to be used to
+list the 10 embedded font names and their C<code> and the other to be
+used to get the font information:
+
+=begin code
+nf-font-lists
+nf-font-info
+=end code 
 numbers.
 
 In the C</sbin> directory is a Raku script to calculate

@@ -3,15 +3,96 @@
 use lib "lib";
 use NotoFonts-OT;
 
-my %docs  = get-docs-hash;
+# file: /bin/nf-info-list
+say qq:to/HERE/;
+The following data are details about the Noto fonts
+and their licenses, etc. There are four parts
+that will write to standard out when selected
+individually:
 
-say "Information for NotoFont users.";
-say "Select a number to view that topic.";
-print q:to/HERE/;
-  1  #{get-ofl-path}
-  2  #{get-faq-path}
-  3  #{get-sha256-path}
-  4  #{get-font-licenses-path}
+1. The sha256 sums of the 10 fonts:          'SHA256SUMS.txt'
+2. The Open Font License (OFL):              'OFL.txt'
+3. The OFL FAQ (Frequently Asked Questions): 'OFL.txt'
+4. Details of font licenses:                 'FONT-LICENSES.rakudoc'
 HERE
-#my prompt = "
+
+my %docs  = %(
+    1 => {
+             title => 'SHA256SUMS.txt',
+             path  => '/usr/local/git-repos/my-public-modules/NotoFonts-OT/resources/text/OFL.txt',
+    },
+    2 => {
+             title => 'OFL.txt',
+             path  => '/usr/local/git-repos/my-public-modules/NotoFonts-OT/resources/text/OFL-FAQ.txt',
+    },
+    3 => {
+             title => 'OFL.txt',
+             path  => '/usr/local/git-repos/my-public-modules/NotoFonts-OT/resources/text/SHA256SUMS.txt',
+    },
+    4 => {
+             title => 'FONT-LICENSES.rakudoc',
+             path  => '/usr/local/git-repos/my-public-modules/NotoFonts-OT/resources/text/FONT-LICENSES.rakudoc',
+    },
+);
+
+=begin comment
+for %docs.kv -> $k, $v  {
+    say "key (TITLE): '$k'";
+    say "path: $v";
+    exit;
+    my $b = $v.basename;
+    say "value (path basename): '$b'";
+    my $txt = $v.IO.slurp;
+    #say "  value: $txt";
+#   say "early exit..."; exit;
+}
+say "debug exit"; exit;
+say "Information for NotoFont users.";
+=end comment
+
+
+say "Select a number to view that topic.";
+
+=begin comment
+while prompt("Choose a number between 1 and 4 (or 'q' to quit): ") -> $input {
+    last if $input ne (1|2|3|4);
+
+    with $input {
+        when 1 {
+           # ok; 
+#          for %docs.kv -> $k, $v  {
+           my $txt = (%docs{1}).IO.slurp;
+           say $txt;
+        }
+        when 2 {
+           # ok; 
+           my $txt = slurp %docs{2};
+           say $txt;
+        }
+        when 3 {
+           # ok; 
+           my $txt = slurp %docs{3};
+           say $txt;
+        }
+        when 4 {
+           # ok; 
+           my $txt = slurp %docs{4};
+           say $txt;
+        }
+        default {
+            say "Input number $_ is not in the range 1, 2, 3, 4...exiting";
+            exit;
+        }
+    }
+}
+=end comment
+
+=begin comment
+print qq:to/HERE/;
+  1   {get-ofl-path}
+  2   {get-faq-path}
+  3   {get-sha256-path}
+  4   {get-font-licenses-path}
+HERE
+=end comment
 

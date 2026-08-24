@@ -1,7 +1,6 @@
 #!/usr/bin/env raku
 
 use File::Find;
-
 my $dir = "../resources/fonts/";
 
 my @fils = find :$dir, :type<file>, :name(/'.' otf/);

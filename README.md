@@ -31,7 +31,7 @@ use NotoFonts-OT;
 
 # Select the Noto font 'NotoSerif-Regular' to be loaded
 # as a PDF font object to be used to print text on a PDF page.
-# Use a code reference from Table 1:
+# Use a reference number from Table 1:
 my $font = get-loaded-font 1;
 isa-ok $font, PDF::Content::FontObj;
 # OUTPUT:
@@ -79,7 +79,12 @@ Font sources
 
 The `/resouurces/fonts` directory contains the embedded fonts. The `/resouurces/text` directory contains a description of their original source and a list of their sha256sums for authentication. It also contains a file describing the SIL Open Font License (OFL) for the included fonts and a file with a large amount of Frequently Asked Questions (FAQ) about the OFL.
 
-In the `/bin` directory is a script to be used to list the 10 embedded font names and their `code` numbers.
+In the `/bin` directory are two Raku scripts: one is a script to be used to list the 10 embedded font names and their `code` and the other to be used to get the font information:
+
+    nf-font-lists
+    nf-font-info
+
+numbers.
 
 In the `/sbin` directory is a Raku script to calculate sha256sums of files.
 

@@ -39,48 +39,6 @@ sub get-faq-path( --> IO::Path    ) is export { return %?RESOURCES<text/OFL-FAQ.
 sub get-sha256-path( --> IO::Path    ) is export { return %?RESOURCES<text/SHA256SUMS.txt>.IO; }
 sub get-font-licenses-path( --> IO::Path    ) is export { return %?RESOURCES<text/FONT-LICENSES.rakudoc>.IO; }
 
-=begin comment
-sub list-font-names(
-    %fonts,
-    :$debug,
-) {
-    my %names;
-    for %fonts.values.sort -> $name is copy {
-	next if $name ~~ /raku | OFL /;
-	next unless $name ~~ /\S/;
-	#$name .= basename;
-	
-	next if %names{$name}:exists;
-	%names{$name} = 1;
-	say $name if $debug;
-    }
-    for %names.keys.sort -> $name {
-	say $name if 1 or $debug;
-    }
-}
-=end comment
-
-=begin comment
-sub list-font-codes(
-    %fonts,
-    :$debug,
-    --> List
-) {
-    my @codes;
-    #for %!fonts.keys.sort -> $code {
-    for %fonts.keys.sort -> $code {
-	next if $code ~~ /raku | OFL /;
-	next unless $code ~~ /\S/;
-	#$name .= basename;
-	
-	say $code if $debug;
-	@codes.push: $code;
-    }
-    say() if $debug;
-    return @codes;
-}
-=end comment
-
 sub get-path(
     $code,
     :%fonts,
