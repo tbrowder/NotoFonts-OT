@@ -3,9 +3,6 @@
 use lib "lib";
 use NotoFonts-OT;
 
-use Pod::To::Markdown;
-use Pod::Load;
-
 # file: /bin/nf-info-list
 say qq:to/HERE/;
 The following data are details about the Noto fonts
@@ -37,16 +34,12 @@ my %docs  = %(
     },
 );
 
-say "Select a number to view that topic.";
+#while prompt("Choose a number between 1 and 4 (or 'q' to quit): ") -> $input {
+#    last if $input ne (1|2|3|4);
 
-#=begin comment
-while prompt("Choose a number between 1 and 4 (or 'q' to quit): ") -> $input {
-    last if $input ne (1|2|3|4);
-
-    my Str $ofil;
-    with $input {
-        when 1 {
-           # ok; 
+#    with $input {
+#        when 1 {
+{           # ok; 
            my $t1 = %docs{1}<title>;
            my $t2 = %docs{1}<path>;
            if $t1.IO.e {
@@ -56,11 +49,12 @@ while prompt("Choose a number between 1 and 4 (or 'q' to quit): ") -> $input {
                $t2.IO.copy: $t1;
                say "Copied '$t2' to '$t1'...";
            }
-           exit;
+#          exit;
         }
-        when 2 {
-           # ok; 
-           my $t1 = %docs{2}<title>;
+
+#       when 2 {
+#          # ok; 
+{          my $t1 = %docs{2}<title>;
            my $t2 = %docs{2}<path>;
            if $t1.IO.e {
                say "Skipped: '$t1' already exists...";
@@ -71,9 +65,10 @@ while prompt("Choose a number between 1 and 4 (or 'q' to quit): ") -> $input {
            }
            exit;
         }
-        when 3 {
-           # ok; 
-           my $t1 = %docs{3}<title>;
+
+#       when 3 {
+#          # ok; 
+{          my $t1 = %docs{3}<title>;
            my $t2 = %docs{3}<path>;
            if $t1.IO.e {
                say "Skipped: '$t1' already exists...";
@@ -84,11 +79,10 @@ while prompt("Choose a number between 1 and 4 (or 'q' to quit): ") -> $input {
            }
            exit;
         }
-        when 4 {
-           # ; cmd = raku --doc=Markdown docs/SPECS.rakudoc > SPECS.md
-           # ok; 
-           # this is rakudoc file, convert to markdown as well?
-           my $t1 = %docs{4}<title>;
+
+#       when 4 {
+#          # ok; 
+{          my $t1 = %docs{4}<title>;
            my $t2 = %docs{4}<path>;
            if $t1.IO.e {
                say "Skipped: '$t1' already exists...";
@@ -96,12 +90,6 @@ while prompt("Choose a number between 1 and 4 (or 'q' to quit): ") -> $input {
            else {
                $t2.IO.copy: $t1;
                say "Copied '$t2' to '$t1'...";
-
-               # also convert to markdown
-               # title => 'FONT-LICENSES.rakudoc',
-               my $pod-tree = load($t1);
-               my $markdown = pod2markdown($pod-tree);
-               $ofil.IO.spurt($markdown);
            }
            exit;
         }
@@ -109,8 +97,8 @@ while prompt("Choose a number between 1 and 4 (or 'q' to quit): ") -> $input {
             say "Input number $_ is not in the range 1, 2, 3, 4...exiting";
             exit;
         }
-    }
-}
+   # }
+#}
 #=end comment
 
 =begin comment
