@@ -1,4 +1,5 @@
 Fix the /sbin shasum256 tester.
+Consider making it an xt test Using subs.
 
 Finish docs for the current state.
 
