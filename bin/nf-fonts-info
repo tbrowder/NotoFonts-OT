@@ -35,79 +35,14 @@ my %docs  = %(
     },
 );
 
-#while prompt("Choose a number between 1 and 4 (or 'q' to quit): ") -> $input {
-#    last if $input ne (1|2|3|4);
-
-#    with $input {
-#        when 1 {
-{           # ok; 
-           my $t1 = %docs{1}<title>;
-           my $t2 = %docs{1}<path>;
-           if $t1.IO.e {
-             # say "Skipped: '$t1' already exists...";
-           }
-           else {
-               $t2.IO.copy: $t1;
-             # say "Copied '$t2' to '$t1'...";
-           }
-#          exit;
-        }
-
-#       when 2 {
-#          # ok; 
-{          my $t1 = %docs{2}<title>;
-           my $t2 = %docs{2}<path>;
-           if $t1.IO.e {
-             # say "Skipped: '$t1' already exists...";
-           }
-           else {
-               $t2.IO.copy: $t1;
-             # say "Copied '$t2' to '$t1'...";
-           }
-          # exit;
-        }
-
-#       when 3 {
-#          # ok; 
-{          my $t1 = %docs{3}<title>;
-           my $t2 = %docs{3}<path>;
-           if $t1.IO.e {
-            #  say "Skipped: '$t1' already exists...";
-           }
-           else {
-               $t2.IO.copy: $t1;
-            #  say "Copied '$t2' to '$t1'...";
-           }
-          # exit;
-        }
-
-#       when 4 {
-#          # ok; 
-{          my $t1 = %docs{4}<title>;
-           my $t2 = %docs{4}<path>;
-           if $t1.IO.e {
-             # say "Skipped: '$t1' already exists...";
-           }
-           else {
-               $t2.IO.copy: $t1;
-             # say "Copied '$t2' to '$t1'...";
-           }
-        #  exit;
-        }
-      # default {
-      #     say "Input number $_ is not in the range 1, 2, 3, 4...exiting";
-      #     exit;
-      # }
-   # }
-#}
-#=end comment
-
-=begin comment
-print qq:to/HERE/;
-  1   {get-ofl-path}
-  2   {get-faq-path}
-  3   {get-sha256-path}
-  4   {get-font-licenses-path}
-HERE
-=end comment
-
+for 1..4 -> $n {
+   my $t1 = %docs{$n}<title>;
+   my $t2 = %docs{$n}<path>;
+   if $t1.IO.e {
+     # say "Skipped: '$t1' already exists...";
+   }
+   else {
+       $t2.IO.copy: $t1;
+     # say "Copied '$t2' to '$t1'...";
+   }
+}
