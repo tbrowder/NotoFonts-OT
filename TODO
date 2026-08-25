@@ -3,3 +3,7 @@ other known core fonts.
 
 Provide a routine to provide a font when given
 a list of descriptors.
+
+Have the /bin/nf-fonts-info script write three files 
+in the current directory, but only if they are not
+there already.

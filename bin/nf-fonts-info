@@ -53,16 +53,20 @@ say "Information for NotoFont users.";
 
 say "Select a number to view that topic.";
 
-=begin comment
+#=begin comment
 while prompt("Choose a number between 1 and 4 (or 'q' to quit): ") -> $input {
     last if $input ne (1|2|3|4);
 
     with $input {
         when 1 {
            # ok; 
-#          for %docs.kv -> $k, $v  {
-           my $txt = (%docs{1}).IO.slurp;
-           say $txt;
+           my $t1 = %docs{1}<title>; ##          for %docs.kv -> $k, $v  {
+           my $t2 = %docs{1}<path>; #txt = (%docs{1}).IO.slurp;
+           my $t3 = %docs{1}<path>.IO.slurp; #txt = (%docs{1}).IO.slurp;
+           say $t1;
+           say $t2;
+           say $t3;
+           exit;
         }
         when 2 {
            # ok; 
@@ -85,7 +89,7 @@ while prompt("Choose a number between 1 and 4 (or 'q' to quit): ") -> $input {
         }
     }
 }
-=end comment
+#=end comment
 
 =begin comment
 print qq:to/HERE/;
