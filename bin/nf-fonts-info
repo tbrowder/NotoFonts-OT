@@ -3,12 +3,14 @@
 use lib "lib";
 use NotoFonts-OT;
 
+use Pod::To::Markdown;
+use Pod::Load;
+
 # file: /bin/nf-info-list
 say qq:to/HERE/;
 The following data are details about the Noto fonts
 and their licenses, etc. There are four parts
-that will write to standard out when selected
-individually:
+and each will be printed locally.
 
 1. The sha256 sums of the 10 fonts:          'SHA256SUMS.txt'
 2. The Open Font License (OFL):              'OFL.txt'
@@ -19,15 +21,15 @@ HERE
 my %docs  = %(
     1 => {
              title => 'SHA256SUMS.txt',
-             path  => '/usr/local/git-repos/my-public-modules/NotoFonts-OT/resources/text/OFL.txt',
+             path  => '/usr/local/git-repos/my-public-modules/NotoFonts-OT/resources/text/SHA256SUMS.txt',
     },
     2 => {
              title => 'OFL.txt',
-             path  => '/usr/local/git-repos/my-public-modules/NotoFonts-OT/resources/text/OFL-FAQ.txt',
+             path  => '/usr/local/git-repos/my-public-modules/NotoFonts-OT/resources/text/OFL.txt',
     },
     3 => {
-             title => 'OFL.txt',
-             path  => '/usr/local/git-repos/my-public-modules/NotoFonts-OT/resources/text/SHA256SUMS.txt',
+             title => 'OFL-FAQ.txt',
+             path  => '/usr/local/git-repos/my-public-modules/NotoFonts-OT/resources/text/OFL-FAQ.txt',
     },
     4 => {
              title => 'FONT-LICENSES.rakudoc',
@@ -35,53 +37,73 @@ my %docs  = %(
     },
 );
 
-=begin comment
-for %docs.kv -> $k, $v  {
-    say "key (TITLE): '$k'";
-    say "path: $v";
-    exit;
-    my $b = $v.basename;
-    say "value (path basename): '$b'";
-    my $txt = $v.IO.slurp;
-    #say "  value: $txt";
-#   say "early exit..."; exit;
-}
-say "debug exit"; exit;
-say "Information for NotoFont users.";
-=end comment
-
-
 say "Select a number to view that topic.";
 
 #=begin comment
 while prompt("Choose a number between 1 and 4 (or 'q' to quit): ") -> $input {
     last if $input ne (1|2|3|4);
 
+    my Str $ofil;
     with $input {
         when 1 {
            # ok; 
-           my $t1 = %docs{1}<title>; ##          for %docs.kv -> $k, $v  {
-           my $t2 = %docs{1}<path>; #txt = (%docs{1}).IO.slurp;
-           my $t3 = %docs{1}<path>.IO.slurp; #txt = (%docs{1}).IO.slurp;
-           say $t1;
-           say $t2;
-           say $t3;
+           my $t1 = %docs{1}<title>;
+           my $t2 = %docs{1}<path>;
+           if $t1.IO.e {
+               say "Skipped: '$t1' already exists...";
+           }
+           else {
+               $t2.IO.copy: $t1;
+               say "Copied '$t2' to '$t1'...";
+           }
            exit;
         }
         when 2 {
            # ok; 
-           my $txt = slurp %docs{2};
-           say $txt;
+           my $t1 = %docs{2}<title>;
+           my $t2 = %docs{2}<path>;
+           if $t1.IO.e {
+               say "Skipped: '$t1' already exists...";
+           }
+           else {
+               $t2.IO.copy: $t1;
+               say "Copied '$t2' to '$t1'...";
+           }
+           exit;
         }
         when 3 {
            # ok; 
-           my $txt = slurp %docs{3};
-           say $txt;
+           my $t1 = %docs{3}<title>;
+           my $t2 = %docs{3}<path>;
+           if $t1.IO.e {
+               say "Skipped: '$t1' already exists...";
+           }
+           else {
+               $t2.IO.copy: $t1;
+               say "Copied '$t2' to '$t1'...";
+           }
+           exit;
         }
         when 4 {
+           # ; cmd = raku --doc=Markdown docs/SPECS.rakudoc > SPECS.md
            # ok; 
-           my $txt = slurp %docs{4};
-           say $txt;
+           # this is rakudoc file, convert to markdown as well?
+           my $t1 = %docs{4}<title>;
+           my $t2 = %docs{4}<path>;
+           if $t1.IO.e {
+               say "Skipped: '$t1' already exists...";
+           }
+           else {
+               $t2.IO.copy: $t1;
+               say "Copied '$t2' to '$t1'...";
+
+               # also convert to markdown
+               # title => 'FONT-LICENSES.rakudoc',
+               my $pod-tree = load($t1);
+               my $markdown = pod2markdown($pod-tree);
+               $ofil.IO.spurt($markdown);
+           }
+           exit;
         }
         default {
             say "Input number $_ is not in the range 1, 2, 3, 4...exiting";
