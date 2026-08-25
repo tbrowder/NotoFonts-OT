@@ -1,9 +1,15 @@
+Fix the /sbin shasum256 tester.
+
+Finish docs for the current state.
+
+DONE: Have the /bin/nf-fonts-info script write four files 
+in the current directory, but only if they are not
+there already.
+
+LATER:
+
 Provide an extended numerical list for the many
 other known core fonts.
 
 Provide a routine to provide a font when given
 a list of descriptors.
-
-Have the /bin/nf-fonts-info script write three files 
-in the current directory, but only if they are not
-there already.
