@@ -18,11 +18,6 @@ my %known = %(
 );
 
 my %fils = %known.invert;
-#say "# now key is file basename, value is sha256sum";
-#for %fils.kv -> $k, $v {
-#    say "'$k' => '$v'";
-#}
-#say "early exit"; exit;
 
 if not @*ARGS {
     say qq:to/HERE/;
@@ -40,9 +35,6 @@ my $dir = "./resources/fonts/";
 
 my @fils = find :$dir, :type<file>, :name(/'.' otf $/);
 
-#say $_ for @fils;
-#exit;
-
 for @fils ->  $f is copy {
     say "Inspecting file:";
     say "  '$f'";
@@ -51,18 +43,14 @@ for @fils ->  $f is copy {
 
     # get the precalculated sha256sum
     my $precalc-sha = (%fils{$fb}).Str;
-    say "  precalc sha '$precalc-sha'";
-    #exit;
 
     # calculate it anew
     my $proc = run "sha256sum", $f, :out;
     my $res = $proc.out.get; # shasum filename
     my @w = $res.words;
     my $sha = @w.head;
-    #my $fil = @w.tail.IO.basename;
-    #say "$sha  $fil";
     say "  current sha '$sha'";
     is $sha, $precalc-sha, "the two shasums should be the same";
 }
     
-
+done-testing;
