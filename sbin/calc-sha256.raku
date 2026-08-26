@@ -1,5 +1,7 @@
 #!/usr/bin/env raku
 
+use Test;
+
 use File::Find;
 
 my %known = %(
@@ -15,6 +17,13 @@ my %known = %(
 '2cd45446ef6d6b96272c48a90467c56cdbccfed5d9632df2239b8369bd9f1e0a' => 'NotoSans-Bold.otf',
 );
 
+my %fils = %known.invert;
+#say "# now key is file basename, value is sha256sum";
+#for %fils.kv -> $k, $v {
+#    say "'$k' => '$v'";
+#}
+#say "early exit"; exit;
+
 if not @*ARGS {
     say qq:to/HERE/;
     Usage: {$*PROGRAM.basename} <inputs>
@@ -27,16 +36,33 @@ if not @*ARGS {
     exit;
 }
 
-my $dir = "../resources/fonts/";
+my $dir = "./resources/fonts/";
 
-my @fils = find :$dir, :type<file>, :name(/'.' otf/);
+my @fils = find :$dir, :type<file>, :name(/'.' otf $/);
 
-for @fils ->  $f {
+#say $_ for @fils;
+#exit;
+
+for @fils ->  $f is copy {
+    say "Inspecting file:";
+    say "  '$f'";
+    my $fb = $f.basename;
+    say "  '$fb'";
+
+    # get the precalculated sha256sum
+    my $precalc-sha = (%fils{$fb}).Str;
+    say "  precalc sha '$precalc-sha'";
+    #exit;
+
+    # calculate it anew
     my $proc = run "sha256sum", $f, :out;
     my $res = $proc.out.get; # shasum filename
     my @w = $res.words;
     my $sha = @w.head;
-    my $fil = @w.tail.IO.basename;
-    say "$sha  $fil";
+    #my $fil = @w.tail.IO.basename;
+    #say "$sha  $fil";
+    say "  current sha '$sha'";
+    is $sha, $precalc-sha, "the two shasums should be the same";
 }
+    
 

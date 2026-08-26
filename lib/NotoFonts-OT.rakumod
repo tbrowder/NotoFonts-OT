@@ -482,3 +482,25 @@ sub list-font-names-number(
     }
 }
 
+sub calc-sha256sum(
+    IO::Path $file,
+    :$debug
+    --> Numeric
+) is export {
+    # 'sha256sum' is a linux routine
+    my $proc = run "sha256sum", $file, :out;
+    my $res = $proc.out.get; # shasum  file
+    # the result is two part string: shasum file
+    my @w = $res.words;
+    my $sha = $res.words.head;
+
+    if $debug {
+        my $fil = $res.words.tail;
+        my $bnam = $fil.basename;
+        say "DEBUG: file: '$file'";
+        say "       sha:  '$sha'";
+    }
+
+    $sha
+}
+
