@@ -8,7 +8,7 @@ use PDF::Content;
 use PDF::Content::FontObj;
 use PDF::Lite;
 
-use Digest::SHA255::Native;
+use Digest::SHA256::Native;
 use File::Find;
 use NotoFonts-OT;
 
@@ -26,8 +26,11 @@ for 1..10 -> $code {
     }
     note "path: $path";
 #   next;
-    my $sha  = calc-sha256sum $path;
-    note "sha:  $sha";
+    my $sha2 = calc-sha256sumB $path;
+    note "sha2:  $sha2";
+#   my $sha  = calc-sha256sum $path;
+#   note "sha:  $sha";
+    last;
 }
 
 =finish

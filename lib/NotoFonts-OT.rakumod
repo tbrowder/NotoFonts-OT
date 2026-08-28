@@ -7,6 +7,8 @@ use PDF::Lite;
 use FontConfig;
 use File::Find;
 
+use Digest::SHA256::Native;
+
 use NotoFonts-OT::Download;
 use NotoFonts-OT::Registry;
 use NotoFonts-OT::Vars;
@@ -484,25 +486,28 @@ sub list-font-names-number(
 }
 
 sub calc-sha256sumB(
-    $file,
+    IO::Path $file-path,
     :$debug,
 ) is export {
-    constant \CHUNK = 65536;
-    if $file.IO.f {
-        my $sha = Digest::SHA256.new; 
-        my $fh  = $file.IO.open(:r, :bin);
+    constant \CHUNK-SIZE = 4096;
+    my $hex-string = "";
 
-        # Process the file progressively
-        while not $fh.eof {
-            my $chunk = $fh.read(CHUNK);
-            $sha.push: $chunk;
-        }
-        $fh.close;
-        "{$sha.hex} $file";
+    my $fh  = $file-path.IO.open(:r, :bin);
+
+    my $sha = ""; 
+
+    # Process the file progressively
+    while $fh.read(CHUNK-SIZE) -> $buf {
+        $hex-string ~= $buf.List.fmt('%02x', '');
     }
-    else {
-        0;
-    }
+    $fh.close;
+        
+    note $hex-string;
+    return $hex-string;
+}
+
+sub do-sha256(
+) is export {
 }
 
 sub calc-sha256sum(
