@@ -12,7 +12,6 @@ use Digest::SHA256::Native;
 use NotoFonts-OT::Download;
 use NotoFonts-OT::Registry;
 use NotoFonts-OT::Vars;
-use NotoFonts-OT::FontPaths;
 
 # Initialization
 
