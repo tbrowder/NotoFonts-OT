@@ -507,7 +507,24 @@ sub calc-sha256sumB(
 }
 
 sub do-sha256(
+    IO::Path $file,
+    :$debug,
 ) is export {
+    # NO chunking
+    unless $file.f {
+        die "FATAL: File '$file' does not point to a valid file.";
+    }
+
+    my $proc = run "sha256sum", $file.absolute, :out;
+
+    my $raw-output = $proc.out.slurp: :close;   
+
+    if $raw-output ~~ /^ (<[0..9a..zA..Z]>**64) $/ {
+        return ~$0;
+    }
+
+    die "FATAL: Failed to parse a valid SHA-256 hash from command output.";
+
 }
 
 sub calc-sha256sum(

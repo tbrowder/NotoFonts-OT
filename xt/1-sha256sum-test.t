@@ -25,13 +25,16 @@ for 1..10 -> $code {
         next;
     }
     note "path: $path";
-#   next;
+    do-sha256 $path;
+    next;
+
     my $sha2 = calc-sha256sumB $path;
     note "sha2:  $sha2";
 #   my $sha  = calc-sha256sum $path;
 #   note "sha:  $sha";
     last;
 }
+
 
 =finish
 
