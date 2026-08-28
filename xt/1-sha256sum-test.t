@@ -1,87 +1,61 @@
-use v6.d; 
+use v6.d;
 use Test;
 
-use MacOS::NativeLib "*";
-use PDF::Font::Loader::HarfBuzz;
-use PDF::Font::Loader :load-font;
-use PDF::Content;
-use PDF::Content::FontObj;
-use PDF::Lite;
-
 use Digest::SHA256::Native;
-use File::Find;
 use NotoFonts-OT;
 
-# sub get-font-path $code #  
+my IO::Path $sums-file = get-sha256-path;
 
-# the embedded font files paths
-my $debug = 0;
+ok $sums-file.f,
+    "SHA256SUMS file exists";
 
-# the sha256sums and font file basenames
-for 1..10 -> $code {
-    my $path = get-font-path $code;
-    if not $path.IO.f {
-        note "path $path is NOT a path";
+my %expected-shas;
+
+for $sums-file.lines -> $line is copy {
+    $line .= trim;
+
+    next unless $line.chars;
+    next if $line.starts-with('#');
+
+    my @words = $line.words;
+
+    unless @words.elems >= 2 {
+        flunk "Malformed SHA256SUMS line: '$line'";
         next;
     }
-    note "path: $path";
-    do-sha256 $path;
-    next;
 
-    my $sha2 = calc-sha256sumB $path;
-    note "sha2:  $sha2";
-#   my $sha  = calc-sha256sum $path;
-#   note "sha:  $sha";
-    last;
+    my $sha = @words.head.lc;
+    my $file = @words.tail.IO.basename;
+
+    unless $sha ~~ /^ <[0..9a..f]> ** 64 $/ {
+        flunk "Invalid SHA-256 value for '$file': '$sha'";
+        next;
+    }
+
+    %expected-shas{$file} = $sha;
 }
 
+for 1..10 -> $code {
+    my IO::Path $font-path = get-font-path($code);
+    my $basename = $font-path.basename;
 
-=finish
+    ok $font-path.f,
+        "font $code exists: $basename";
 
-my $dir = "./resources/fonts/";
-my @bfils = find :$dir, :type<file>, :name(/:i '.otf' $/);
+    unless %expected-shas{$basename}:exists {
+        flunk "SHA256SUMS contains an entry for $basename";
+        next;
+    }
 
-my $fdir = "./resources/fonts/";
+    pass "SHA256SUMS contains an entry for $basename";
 
-my $sfil = "./resources/text/SHA256SUMS.txt";
-my @lines = $sfil.IO.slurp.lines;
-my %file-sha;
+    my $actual-sha = sha256-hex(
+        $font-path.slurp(:bin)
+    );
 
-for @lines -> $line is copy {
-    $line .= Str;
-    my $fil = $line.words.tail;
-
-    my $dir = "./resources/fonts/";
-    my @fils = find :$dir, :type<file>, :name(/:i '.otf' $/);
-    my $sha = $line.words.head;
-    %file-sha{$fil} = $sha;
+    is $actual-sha,
+        %expected-shas{$basename},
+        "SHA-256 matches for $basename";
 }
 
-my %new-fil-sha;
-for %file-sha.kv -> $fil is copy, $sha {
-    my $sha2 = calc-sha256sum $fil;
-    is $sha2, $sha;
-}
-
-=begin comment
-for @fils ->  $f is copy {
-    say "Inspecting file:";
-    say "  '$f'";
-    my $fb = $f.basename;
-    say "  '$fb'";
-
-    # get the precalculated sha256sum
-    my $precalc-sha = (%fils{$fb}).Str;
-
-    # calculate it anew
-    my $proc = run "sha256sum", $f, :out;
-    my $res = $proc.out.get; # shasum filename
-    my @w = $res.words;
-    my $sha = @w.head;
-    say "  current sha '$sha'";
-    is $sha, $precalc-sha, "the two shasums should be the same";
-}
-=end comment
-    
 done-testing;
-
