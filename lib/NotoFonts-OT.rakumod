@@ -5,6 +5,7 @@ use PDF::Content;
 use PDF::Content::FontObj;
 use PDF::Lite;
 use FontConfig;
+use File::Find;
 
 use NotoFonts-OT::Download;
 use NotoFonts-OT::Registry;
@@ -332,7 +333,7 @@ my IO::Path $font-licenses = %?RESOURCES<text/FONT-LICENSES.rakudoc>.IO;
 my IO::Path $sums          = %?RESOURCES<text/SHA256SUMS.txt>.IO;
 =end comment
 
- sub build-font-paths(
+sub build-font-paths(
     --> Hash
 ) is export {
     my %paths;
@@ -482,38 +483,68 @@ sub list-font-names-number(
     }
 }
 
+sub calc-sha256sumB(
+    $file,
+    :$debug,
+) is export {
+    constant \CHUNK = 65536;
+    if $file.IO.f {
+        my $sha = Digest::SHA256.new; 
+        my $fh  = $file.IO.open(:r, :bin);
+
+        # Process the file progressively
+        while not $fh.eof {
+            my $chunk = $fh.read(CHUNK);
+            $sha.push: $chunk;
+        }
+        $fh.close;
+        "{$sha.hex} $file";
+    }
+    else {
+        0;
+    }
+}
+
 sub calc-sha256sum(
-#   IO::Path $file,
-    *@files, # magic: can be one or more $files
+#   IO::Path $file, 
+    *@files, # magic: can be a list of one or more $files
+             #        the file MUST be a real path
     :$debug
-    --> List
+    --> Hash # file => sha256
 ) is export {
     my $n = 0;
     my $file;
     my @sha;
-    my @file-sha-pairs;
-    while @files -> $file {
+    my %file-sha; # $file => $sha
+
+    while @files -> $file is copy {
         ++$n;
 
-    # 'sha256sum' is a linux routine
-    my $proc = run "sha256sum", $file, :out;
-    my $res = $proc.out.get; # shasum  file
-    # the result is two part string: shasum file
-    my @w = $res.words;
-    my $sha = $res.words.head;
-    my $fil = $res.words.tail;
+#       # get key which is the basename less the .otf
+#       my $n = $file.basename;
+#       $n ~~ s/:i '.otf' $//;
+#       my $f = get-font-path $n;
 
-    my $file-sha-pair = "$fil $sha";
-    if $debug {
+        
+        # 'sha256sum' is a linux routine
+        my $proc = run "sha256sum", $file, :out;
+        my $res = $proc.out.get; # shasum  file
+        $proc.out.close;
+        $res .= Str;
+        # the result is two part string: shasum file
+
+        my $sha = $res.words.head;
         my $fil = $res.words.tail;
-        my $bnam = $fil.basename;
-        say "DEBUG: file: '$file'";
-        say "       sha:  '$sha'";
-    }
-        @file-sha-pairs.push: $file-sha-pair;
+
+        %file-sha{$fil} = $sha;
+        if $debug {
+            my $fil = $res.words.tail;
+            my $bnam = $fil.basename;
+            note "DEBUG: file: '$file'";
+            note "       sha:  '$sha'";
+        }
     }
 
-    #$sha
-    @file-sha-pairs;
+    return %file-sha;
 }
 
