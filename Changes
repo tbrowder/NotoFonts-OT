@@ -4,14 +4,33 @@ Revision history for NotoFonts-OT
     - Added a TODO section in the docs
     - Added a bin script to generate the SHA256SUM for
         any file (and removed it from /sbin)
+    - Merged all external facing code into the parent file
+    - Fixed a major problem with using code not getting a
+        child moddule's data that should have been exported
+
+0.2.1  2026-08-20T16:01:42-05:00
+    - Corrected the last change entry which
+        incorrectly used Pod formatting.
+        The corrected entry follows:
+    - Corrected docs to indicate the
+        'NotoFonts-OT::FontPaths'
+        module is still required (and the 
+        'NotoFonts-OT' 	is a no-op).
+
+0.2.0  2026-08-20T15:08:04-05:00
+    - Corrected docs to indicate the
+        'NotoFonts-OT::FontPaths'
+        module is still required (and the 
+        'NotoFonts-OT' 	is a no-op).
+      The next change will move all the
+      user code to the parent module.
+
+0.1.0  2026-09-07T15:10:37-05:00	
     - Deleted the NotoFonts-OT class
     - Upped the API to 2
     - Added a PDF creation test
     - Cleaned up old code
-    - Merged all external facing code into the parent file
     - Updated the docs
-    - Fixed a major problem with using code not getting a
-        child moddule's data that should have been exported
 
 0.0.3  2026-08-04T13:08:38-05:00
     - Moved non-font entries out of /resources/fonts directory
