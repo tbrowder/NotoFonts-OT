@@ -1,6 +1,8 @@
 Revision history for NotoFonts-OT
 
 {{$NEXT}}
+
+0.3.0  2026-08-29T11:08:52-05:00
     - Added a TODO section in the docs
     - Added a bin script to generate the SHA256SUM for
         any file (and removed it from /sbin)
