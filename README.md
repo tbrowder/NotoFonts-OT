@@ -90,6 +90,11 @@ Package `App::FontSample`
 
 Use that Raku package to produce font samples in various formats. It should be published fairly soon.
 
+TODO
+====
+
+The next improvement planned is to enable finding and downloading other Noto fonts onto the user's system and providing a unique number code to enable easy use of them.
+
 AUTHOR
 ======
 

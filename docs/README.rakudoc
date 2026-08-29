@@ -118,6 +118,12 @@ nf-font-sha256 # generates the SHA256SUM for a file
 Use that Raku package to produce font samples in various formats.
 It should be published fairly soon.
 
+=head1 TODO
+
+The next improvement planned is to enable finding and downloading
+other Noto fonts onto the user's system and providing a unique
+number code to enable easy use of them.
+
 =head1 AUTHOR
 
 Tom Browder <tbrowder@acm.org>
