@@ -1,0 +1,32 @@
+#!/usr/bin/env raku
+
+use Digest::SHA256::Native;
+
+unless @*ARGS {
+    print qq:to/HERE/;
+    Usage: {$*PROGRAM.basename} "some-file-path";
+
+    Returns the SHA256SUM of the input file as a hex number.
+
+    If you follow the file name with 'path' the output hex number
+    will be followed by a space and the input path,
+    HERE
+    exit;
+}
+
+my $file = @*ARGS.shift;
+# any 'path'?
+my $path = 0;
+if @*ARGS {
+    $path = @*ARGS.shift;
+    unless $path eq "path" {
+        $path = 0;
+    }
+}
+my $sha = sha256-hex $file;
+if $path {
+    say "$sha $file";
+}
+else {  
+    say $sha;
+}
