@@ -8,7 +8,7 @@ unless @*ARGS {
 
     Returns the SHA256SUM of the input file as a hex number.
 
-    If you follow the file name with 'path' the output hex number
+    If you follow the file name with, 'path' the output hex number
     will be followed by a space and the input path,
     HERE
     exit;
