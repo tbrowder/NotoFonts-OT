@@ -1,7 +1,9 @@
 Revision history for NotoFonts-OT
 
 {{$NEXT}}
-    - Deleted the class
+    - Added a bin script to generate the SHA256SUM for
+        any file (and removed it from /sbin)
+    - Deleted the NotoFonts-OT class
     - Upped the API to 2
     - Added a PDF creation test
     - Cleaned up old code
