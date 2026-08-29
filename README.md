@@ -79,7 +79,7 @@ Font sources
 
 The `/resouurces/fonts` directory contains the embedded fonts. The `/resouurces/text` directory contains a description of their original source and a list of their sha256sums for authentication. It also contains a file describing the SIL Open Font License (OFL) for the included fonts and a file with a large amount of Frequently Asked Questions (FAQ) about the OFL.
 
-In the `/bin` directory are three Raku scripts: one is a script to be used to list the 10 embedded font names and their `code`, the next can be used to get the font information, and last can be used to generate the SHA256SUM for a fil. Those scripts can be executed by their basenames whwn this module is installed on your system.:
+In the `/bin` directory are three Raku scripts: one is a script to be used to list the 10 embedded font names and their `code`, the next can be used to get the font information, and last can be used to generate the SHA256SUM for a file. Those scripts can be executed by their basenames when this module is installed on your system.:
 
     nf-font-lists  # lists the 10 embedded fonts and their code
     nf-font-info   # lists various font details, FAQs, etc.
