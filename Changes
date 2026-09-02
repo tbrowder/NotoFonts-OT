@@ -1,6 +1,8 @@
 Revision history for NotoFonts-OT
 
 {{$NEXT}}
+
+0.3.1  2026-09-02T10:32:16-05:00
     - Fix macos testing on GitHub
 
 0.3.0  2026-08-29T11:08:52-05:00
