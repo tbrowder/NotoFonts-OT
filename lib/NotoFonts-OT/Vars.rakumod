@@ -36,7 +36,7 @@ our constant %default-samples is export = %(
         text => 'Vår sære Zulu fra badeøya spilte jo whist og quickstep',
     },
     nn => {
-        lang => 'Norwegian (Nyorsk)',
+        lang => 'Norwegian (Nynorsk)',
         text => "Høvdingen såg på dei små fugleungane då ætta åt ein ås.",
     },
     pl => {
@@ -57,7 +57,7 @@ our constant %default-samples is export = %(
         text => 'El veloz murciélago hindú comía feliz cardillo y kiwi. La cigüeña tocaba el saxofón detrás del palenque de paja.',
     },
     uk => {
-        lang => 'Ukranian',
+        lang => 'Ukrainian',
         text => 'Чуєш їх, доцю, га? Кумедна ж ти, прощайся без ґольфів!',
     },
 );
