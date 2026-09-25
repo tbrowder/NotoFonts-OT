@@ -1,6 +1,7 @@
 Revision history for NotoFonts-OT
 
 {{$NEXT}}
+    -  Add test for bank check E-13B characters
 
 0.3.2  2026-09-13T10:26:22-05:00
     - Correct spellings:
