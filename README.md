@@ -29,9 +29,9 @@ use NotoFonts-OT;
 # Use the provided subroutines to create individual font objects
 # of the desired font face:
 
-# Select the Noto font 'NotoSerif-Regular' to be loaded
-# as a PDF font object to be used to print text on a PDF page.
-# Use a reference number from Table 1:
+# Select the Noto font 'NotoSerif-Regular' to be loaded as a PDF font
+# object to be used to print text on a PDF page.  Use a reference
+# number from Table 1:
 my $font = get-loaded-font 1;
 isa-ok $font, PDF::Content::FontObj;
 # OUTPUT:
@@ -40,6 +40,8 @@ ok 1 - The object is-a 'PDF::Content::FontObj'
 ```
 
 That font object, `$font`, should be able to be used by all the Raku PDF modules requiring a font object. File an issue if you find a problem.
+
+Note not all fonts have E-13B characters for bank checks, but test xt/2*t will test for that capability;
 
 DESCRIPTION
 ===========
